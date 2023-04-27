@@ -1,0 +1,43 @@
+@import 'normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700;900&family=Open+Sans:wght@400;700&display=swap');
+
+:root {
+  --primary: #ff7506;
+  --primary-btn: #ff9138;
+  --secondary: #125cff;
+  --secondary-btn: #4680ff;
+  --text-color: #37474f;
+  --bold-text: #282739;
+  --placeholder-color: #535261;
+  --border-color: #d4d4d7;
+  --error-color: #e73f3f;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  /* font-family: 'Open Sans', sans-serif; */
+  font-size: 1.8rem;
+  text-rendering: optimizeSpeed;
+}
+
+.btn {
+  background-color: var(--primary-btn);
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 700;
+  height: 40px;
+  width: 162px;
+  border-radius: 8px;
+  border: none;
+  padding: 10px 24px 10px 24px;
+}
