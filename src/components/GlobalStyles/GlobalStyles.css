@@ -31,13 +31,11 @@ body {
 }
 
 .btn {
-  background-color: var(--primary-btn);
-  color: #fff;
   font-size: 1.6rem;
   font-weight: 700;
   height: 40px;
   width: 162px;
   border-radius: 8px;
-  border: none;
   padding: 10px 24px 10px 24px;
+  cursor: pointer;
 }

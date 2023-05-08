@@ -1,87 +1,28 @@
-.login-page {
-  display: flex;
-  justify-content: center;
-  width: 1440px;
-  height: 810px;
-}
-
-.form-logo {
-  height: 136px;
-  width: 170px;
-  margin: 82px 214px 75px 208px;
-}
-
-.form-side {
-  width: 100%;
-  max-width: 592px;
-  background-color: #f7f7f7;
-}
-
-.form {
+.login-form {
   margin-left: 94px;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 16px;
+.newpass-container,
+.re-newpass-container {
+  position: relative;
+  width: 100%;
 }
 
-.form-label {
-  color: var(--text-color);
-  font-weight: 400;
-  line-height: 27px;
-  margin-bottom: 4px;
+.eyes-icon {
+  position: absolute;
+  font-size: 1.6rem;
+  top: 21%;
+  right: 2%;
+  color: #7e7d88;
+  padding: 6px;
+  cursor: pointer;
 }
 
-.form-control {
-  color: var(--placeholder-color);
-  height: 44px;
-  width: 400px;
-  border-radius: 8px;
-  border-color: var(--border-color);
-  padding: 10px 12px 10px 12px;
-}
-
-.miss-password {
+.forget-password {
   display: block;
   text-decoration: none;
   color: #e73f3f;
   font-size: 1.4rem;
   font-weight: 400;
   line-height: 21px;
-}
-
-.form-submit {
-  margin: 19px 121px;
-}
-
-.picture-side {
-}
-
-.login-img {
-  position: relative;
-  width: 605px;
-  height: 614.06px;
-  margin-top: 112.94px;
-  margin-left: 79px;
-}
-
-.app-name {
-  position: absolute;
-  color: var(--primary);
-  top: 410px;
-  right: 33px;
-}
-
-.text1 {
-  font-size: 3.4rem;
-  font-weight: 400;
-  line-height: 47px;
-}
-
-.text2 {
-  font-size: 3.6rem;
-  line-height: 54px;
-  font-weight: 900;
 }

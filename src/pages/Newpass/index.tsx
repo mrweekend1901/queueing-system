@@ -1,15 +1,14 @@
 import '../base.css';
-import './login.css';
+import './newpass.css';
 import formlogo from '../../assets/images/form__logo.png';
 import loginimg from '../../assets/images/login__img.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 
-function Login() {
-  const [user, setUser] = useState('');
-  const [pass, setPass] = useState('');
+function Newpass() {
+  const [newPass, setNewPass] = useState('');
+  const [reNewPass, setReNewPass] = useState('');
   const [showPass, setShowPass] = useState(false);
 
   const toggleShowPass = () => {
@@ -21,38 +20,20 @@ function Login() {
     <div className="login-page">
       <div className="form-side">
         <img src={formlogo} alt="form-logo" className="form-logo" />
-        <form action="" method="POST" className="login-form" id="login">
+        <form action="" method="POST" className="newpass-form" id="newpass-form">
           <div className="form-group">
-            <label htmlFor="username" className="form-label">
-              Tên đăng nhập *
-            </label>
-            <div className="login-container">
-              <input
-                value={user}
-                id="username"
-                name="username"
-                type="text"
-                placeholder="Nhập tên đăng nhập..."
-                className="form-control"
-                onChange={e => setUser(e.target.value)}
-              />
-            </div>
-            <span className="form__message"></span>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="password" className="form-label">
+            <label htmlFor="newpass" className="form-label">
               Mật khẩu *
             </label>
-            <div className="password-container">
+            <div className="newpass-container">
               <input
-                value={pass}
-                id="password"
-                name="password"
+                value={newPass}
+                id="newpass"
+                name="newpass"
                 type={inputType}
-                placeholder="Nhập mật khẩu..."
+                placeholder="Nhập mật khẩu mới..."
                 className="form-control"
-                onChange={e => setPass(e.target.value)}
+                onChange={e => setNewPass(e.target.value)}
               />
               <FontAwesomeIcon
                 className="eyes-icon"
@@ -63,13 +44,30 @@ function Login() {
             <span className="form__message"></span>
           </div>
 
-          <Link to="/forgetpass" className="forget-password">
-            Quên mật khẩu?
-          </Link>
+          <div className="form-group">
+            <label htmlFor="re-newpass" className="form-label">
+              Nhập lại mật khẩu *
+            </label>
+            <div className="re-newpass-container">
+              <input
+                value={reNewPass}
+                id="re-newpass"
+                name="re-newpass"
+                type={inputType}
+                placeholder="Nhập lại mật khẩu..."
+                className="form-control"
+                onChange={e => setReNewPass(e.target.value)}
+              />
+              <FontAwesomeIcon
+                className="eyes-icon"
+                icon={showPass ? faEyeSlash : faEye}
+                onClick={toggleShowPass}
+              />
+            </div>
+            <span className="form__message"></span>
+          </div>
 
-          <Link to="/dashboard">
-            <button className="btn form-submit">Đăng nhập</button>
-          </Link>
+          <button className="btn form-submit">Xác nhận</button>
         </form>
       </div>
       <div className="picture-side">
@@ -83,4 +81,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Newpass;

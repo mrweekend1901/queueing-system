@@ -1,0 +1,16 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+header {
+  background-color: #1a1a1a;
+  color: white;
+  padding: 20px;
+}
+
+main {
+  flex-grow: 1;
+  padding: 20px;
+}
