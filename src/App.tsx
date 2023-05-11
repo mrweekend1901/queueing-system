@@ -9,6 +9,7 @@ import Report from './pages/Report';
 import Sidebar from './components/Layout/Sidebar';
 import Home from './pages/Home';
 import Setting from './pages/Setting';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Sidebar>
           <Routes>
             <Route path="/home" element={<Home />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/device" element={<Device />} />
             <Route path="/service" element={<Service />} />
             <Route path="/number" element={<Number />} />

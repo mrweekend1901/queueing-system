@@ -1,4 +1,5 @@
 import './home.css';
+import '../base.css';
 import images from '../../assets/images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faCamera } from '@fortawesome/free-solid-svg-icons';
