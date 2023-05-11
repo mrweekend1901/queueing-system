@@ -67,7 +67,7 @@ function Login() {
             Quên mật khẩu?
           </Link>
 
-          <Link to="/dashboard">
+          <Link to="/home">
             <button className="btn form-submit">Đăng nhập</button>
           </Link>
         </form>
