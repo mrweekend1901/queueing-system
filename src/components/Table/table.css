@@ -1,5 +1,43 @@
 .table {
   width: 1112px;
   height: 490px;
-  background-color: orange;
+  border-radius: 12px;
+  filter: drop-shadow(2px 2px 8px rgba(232, 239, 244, 0.8));
+  overflow: hidden;
+}
+
+thead {
+  height: 49px;
+}
+
+table,
+td,
+th {
+  border-right: 1.5px solid #ffe3cd;
+  border-collapse: collapse;
+}
+
+th {
+  min-width: 99px;
+  color: #fff;
+  background-color: var(--primary);
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+td {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--text-color);
+  background-color: #fff;
+  padding-left: 16px;
+}
+
+.text__status {
+  padding-left: 4px;
+}
+
+.status__space {
+  display: flex;
+  align-items: center;
 }
