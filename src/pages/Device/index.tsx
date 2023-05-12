@@ -12,16 +12,65 @@ import UserSide from '../../components/UserSide';
 import Table from '../../components/Table';
 
 function Device() {
+  // Table value
   const columns = [
-    { Header: 'Name', accessor: 'name' },
-    { Header: 'Age', accessor: 'age' },
-    { Header: 'Email', accessor: 'email' },
+    { Header: 'Mã thiết bị', accessor: 'deviceId' },
+    { Header: 'Tên thiết bị', accessor: 'deviceName' },
+    { Header: 'Địa chỉ IP', accessor: 'ipAddress' },
+    { Header: 'Trạng thái hoạt động', accessor: 'activeStatus' },
+    { Header: 'Trạng thái kết nối', accessor: 'conectStatus' },
+    { Header: 'Dịch vụ sử dụng', accessor: 'serviceUse' },
   ];
 
   const data = [
-    { name: 'Alice', age: 25, email: 'alice@example.com' },
-    { name: 'Bob', age: 30, email: 'bob@example.com' },
-    { name: 'Charlie', age: 35, email: 'charlie@example.com' },
+    {
+      deviceId: 'KIO_01',
+      deviceName: 'Kiosk',
+      ipAddress: '192.168.1.10',
+      activeStatus: 'Ngưng hoạt động',
+      conectStatus: 'Ngắt kết nối',
+      serviceUse: 'Khắm mắt, khám tai',
+    },
+    {
+      deviceId: 'KIO_01',
+      deviceName: 'Kiosk',
+      ipAddress: '192.168.1.10',
+      activeStatus: 'Ngưng hoạt động',
+      conectStatus: 'Ngắt kết nối',
+      serviceUse: 'Khắm mắt, khám tai',
+    },
+    {
+      deviceId: 'KIO_01',
+      deviceName: 'Kiosk',
+      ipAddress: '192.168.1.10',
+      activeStatus: 'Ngưng hoạt động',
+      conectStatus: 'Ngắt kết nối',
+      serviceUse: 'Khắm mắt, khám tai',
+    },
+    {
+      deviceId: 'KIO_01',
+      deviceName: 'Kiosk',
+      ipAddress: '192.168.1.10',
+      activeStatus: 'Ngưng hoạt động',
+      conectStatus: 'Ngắt kết nối',
+      serviceUse: 'Khắm mắt, khám tai',
+    },
+    {
+      deviceId: 'KIO_01',
+      deviceName: 'Kiosk',
+      ipAddress: '192.168.1.10',
+      activeStatus: 'Ngưng hoạt động',
+      conectStatus: 'Ngắt kết nối',
+      serviceUse: 'Khắm mắt, khám tai',
+    },
+    {
+      deviceId: 'KIO_01',
+      deviceName: 'Kiosk',
+      ipAddress: '192.168.1.10',
+      activeStatus: 'Ngưng hoạt động',
+      conectStatus: 'Ngắt kết nối',
+      serviceUse: 'Khắm mắt, khám tai',
+    },
   ];
 
   return (
