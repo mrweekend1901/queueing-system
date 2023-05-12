@@ -1,6 +1,8 @@
 import './sidebar.css';
 import { NavLink } from 'react-router-dom';
 import images from '../../../assets/images';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 interface MenuItem {
   path: string;
@@ -54,7 +56,7 @@ const Sidebar = ({ children }: any) => {
           </NavLink>
         ))}
         <button className="btn btn-logout">
-          <img src="" alt="" />
+          <FontAwesomeIcon icon={faRightFromBracket} className="logout__icon" />
           Đăng xuất
         </button>
       </div>

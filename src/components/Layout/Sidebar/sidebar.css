@@ -42,14 +42,14 @@ main {
 }
 
 .link:hover {
-  background: lightskyblue;
-  color: #000;
+  background: var(--hover-primary);
+  color: var(--primary);
   transition: all 0.5s;
 }
 
 .active {
-  background: lightskyblue;
-  color: #000;
+  background: var(--hover-primary);
+  color: var(--primary);
 }
 
 .icon,
@@ -65,4 +65,8 @@ main {
   color: var(--primary);
   bottom: 0;
   margin: 0 12px 30px 12px;
+}
+
+.logout__icon {
+  margin-right: 12px;
 }

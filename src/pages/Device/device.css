@@ -24,7 +24,7 @@
 }
 
 .device__page .feature__group {
-  width: 300px;
+  min-width: 300px;
 }
 
 .device__page .feature__name {
@@ -63,12 +63,6 @@
 .device__page .content__board {
   display: flex;
   margin-top: 16px;
-}
-
-.device__page .content__table {
-  width: 1112px;
-  height: 490px;
-  background-color: orange;
 }
 
 .device__page .add__table {

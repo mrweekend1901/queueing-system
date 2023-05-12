@@ -1,0 +1,125 @@
+.header__wraper,
+.header__user {
+  display: flex;
+  align-items: center;
+}
+
+.header__wraper {
+  margin-right: 60px;
+}
+
+.header__title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-btn);
+}
+
+.border__icon {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  background-color: #fff2e7;
+  border-radius: 50%;
+  margin-right: 24px;
+  font-size: 1.8rem;
+  color: #ffac6a;
+  cursor: pointer;
+}
+
+.border__icon:hover {
+  background-color: var(--primary-btn);
+  color: #fff;
+  transition: all 0.5s;
+}
+
+.border__icon:hover .notify__wrapper {
+  display: block;
+}
+
+.user__avatar {
+  margin-right: 8px;
+}
+
+.text_hello {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--text-color);
+  line-height: 18px;
+}
+
+.user__name {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #535261;
+  line-height: 24px;
+}
+
+/* notify */
+.notify__wrapper {
+  display: none;
+  position: absolute;
+  width: 360px;
+  height: 526px;
+  background-color: #fff;
+  top: 40px;
+  left: -100px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 15px rgba(70, 64, 67, 0.1);
+  transition: all 0.5s;
+  z-index: 1;
+}
+
+.notify__wrapper::before {
+  content: '';
+  position: absolute;
+  width: 20%;
+  height: 30px;
+  top: -24px;
+  left: 74px;
+}
+
+.notify__header {
+  display: flex;
+  height: 48px;
+  background-color: var(--primary-btn);
+  color: #fff;
+  align-items: center;
+  padding-left: 24px;
+  font-size: 2rem;
+  font-weight: 700;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.notify__list {
+  max-height: calc(100% - 48px);
+  list-style: none;
+  overflow-y: auto;
+}
+
+.notify__item {
+  padding: 16px 24px;
+  border-bottom: 1.5px solid #d4d4d7;
+}
+
+.notify__item:hover {
+  background-color: #fff2e7;
+}
+
+.item__name {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 24px;
+  color: #bf5805;
+}
+
+.item__time {
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--text-color);
+  margin-bottom: 12px;
+}

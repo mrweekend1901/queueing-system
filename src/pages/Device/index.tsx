@@ -1,8 +1,6 @@
 import '../base.css';
 import './device.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import images from '../../assets/images';
-import { faBell } from '@fortawesome/free-regular-svg-icons';
 import {
   faAngleRight,
   faCaretLeft,
@@ -10,8 +8,22 @@ import {
   faSearch,
   faSquarePlus,
 } from '@fortawesome/free-solid-svg-icons';
+import UserSide from '../../components/UserSide';
+import Table from '../../components/Table';
 
 function Device() {
+  const columns = [
+    { Header: 'Name', accessor: 'name' },
+    { Header: 'Age', accessor: 'age' },
+    { Header: 'Email', accessor: 'email' },
+  ];
+
+  const data = [
+    { name: 'Alice', age: 25, email: 'alice@example.com' },
+    { name: 'Bob', age: 30, email: 'bob@example.com' },
+    { name: 'Charlie', age: 35, email: 'charlie@example.com' },
+  ];
+
   return (
     <div className="device__page">
       <div className="header">
@@ -20,56 +32,7 @@ function Device() {
           <FontAwesomeIcon className="page__rank-icon" icon={faAngleRight} />
           <div className="header__title">Danh sách thiết bị</div>
         </div>
-        <div className="header__wraper">
-          <span className="border__icon">
-            <FontAwesomeIcon icon={faBell} className="bell__icon" />
-
-            <div className="notify__wrapper">
-              <div className="notify__header">Thông báo</div>
-              <ul className="notify__list">
-                <li className="notify__item">
-                  <p className="item__name">Người nhận: Nguyễn Thị Thùy Dung</p>
-                  <p className="item__time">Thời gian nhận số: 12h20 ngày 30/11/2021</p>
-                </li>
-                <li className="notify__item">
-                  <p className="item__name">Người nhận: Nguyễn Thị Thùy Dung</p>
-                  <p className="item__time">Thời gian nhận số: 12h20 ngày 30/11/2021</p>
-                </li>
-                <li className="notify__item">
-                  <p className="item__name">Người nhận: Nguyễn Thị Thùy Dung</p>
-                  <p className="item__time">Thời gian nhận số: 12h20 ngày 30/11/2021</p>
-                </li>
-                <li className="notify__item">
-                  <p className="item__name">Người nhận: Nguyễn Thị Thùy Dung</p>
-                  <p className="item__time">Thời gian nhận số: 12h20 ngày 30/11/2021</p>
-                </li>
-                <li className="notify__item">
-                  <p className="item__name">Người nhận: Nguyễn Thị Thùy Dung</p>
-                  <p className="item__time">Thời gian nhận số: 12h20 ngày 30/11/2021</p>
-                </li>
-                <li className="notify__item">
-                  <p className="item__name">Người nhận: Nguyễn Thị Thùy Dung</p>
-                  <p className="item__time">Thời gian nhận số: 12h20 ngày 30/11/2021</p>
-                </li>
-                <li className="notify__item">
-                  <p className="item__name">Người nhận: Nguyễn Thị Thùy Dung</p>
-                  <p className="item__time">Thời gian nhận số: 12h20 ngày 30/11/2021</p>
-                </li>
-                <li className="notify__item">
-                  <p className="item__name">Người nhận: Nguyễn Thị Thùy Dung</p>
-                  <p className="item__time">Thời gian nhận số: 12h20 ngày 30/11/2021</p>
-                </li>
-              </ul>
-            </div>
-          </span>
-          <div className="header__user">
-            <img src={images.avatar} alt="avatar" className="user__avatar" />
-            <div className="user__welcome">
-              <p className="text_hello">Xin chào</p>
-              <p className="user__name">Lê Quỳnh Ái Vân</p>
-            </div>
-          </div>
-        </div>
+        <UserSide />
       </div>
 
       <div className="content">
@@ -109,7 +72,7 @@ function Device() {
         </div>
 
         <div className="content__board">
-          <div className="content__table"></div>
+          <Table columns={columns} data={data} />
           <button className="add__table">
             <FontAwesomeIcon icon={faSquarePlus} className="add__table-icon" />
             Thêm thiết bị
