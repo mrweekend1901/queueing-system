@@ -33,6 +33,12 @@ td {
   padding-left: 16px;
 }
 
+.td__click {
+  text-decoration: underline;
+  color: #4277ff;
+  cursor: pointer;
+}
+
 .text__status {
   padding-left: 4px;
 }

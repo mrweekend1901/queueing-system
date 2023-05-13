@@ -10,6 +10,7 @@ import Sidebar from './components/Layout/Sidebar';
 import Home from './pages/Home';
 import Setting from './pages/Setting';
 import Dashboard from './pages/Dashboard';
+import DetailRow from './components/Table/DetailRow';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path="/number" element={<Number />} />
             <Route path="/report" element={<Report />} />
             <Route path="/setting" element={<Setting />} />
+            <Route path="/detailrow" element={<DetailRow />} />
           </Routes>
         </Sidebar>
       </div>

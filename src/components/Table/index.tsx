@@ -1,12 +1,22 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './table.css';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useTable } from 'react-table';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 function Table({ columns, data }: any) {
   const memoizedColumns = useMemo(() => columns, [columns]);
   const memoizedData = useMemo(() => data, [data]);
+
+  const navigate = useNavigate();
+
+  // // Lấy dữ liệu row
+  const [selectedRow, setSelectedRow] = useState(null);
+  const handleRowClick = (row: any) => {
+    setSelectedRow(row);
+    navigate('/detailrow', { state: row });
+  };
 
   const tableInstance = useTable({ columns: memoizedColumns, data: memoizedData });
 
@@ -76,8 +86,10 @@ function Table({ columns, data }: any) {
                 }
               })}
 
-              <td>Chi tiết</td>
-              <td>Cập nhật</td>
+              <td onClick={() => handleRowClick(row.original)} className="td__click">
+                Chi tiết
+              </td>
+              <td className="td__click">Cập nhật</td>
             </tr>
           );
         })}
