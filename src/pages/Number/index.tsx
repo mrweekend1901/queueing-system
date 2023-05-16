@@ -69,6 +69,7 @@ function Number() {
     { Header: 'Trạng thái', accessor: 'status' },
     { Header: 'Nguồn cấp', accessor: 'supply' },
   ];
+
   return (
     <div className="number__page">
       <div className="header">

@@ -47,3 +47,7 @@ td {
   display: flex;
   align-items: center;
 }
+
+.tr__body:nth-of-type(2n + 2) td {
+  background-color: #fff2e7;
+}

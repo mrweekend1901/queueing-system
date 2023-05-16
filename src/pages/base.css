@@ -197,6 +197,7 @@
   top: 25%;
   right: 10px;
   color: var(--primary);
+  cursor: pointer;
 }
 
 .date__from,
@@ -237,6 +238,7 @@
   background-color: #fff2e7;
   border: none;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 .add__table-icon {

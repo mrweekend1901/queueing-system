@@ -7,8 +7,64 @@ import {
   faSquarePlus,
 } from '@fortawesome/free-solid-svg-icons';
 import UserSide from '../../components/UserSide';
+import Table from '../../components/Table';
+import { useEffect, useState } from 'react';
+import { db } from '../../init/init-firebase';
+import { Timestamp, collection, getDocs } from 'firebase/firestore';
+
+interface Data {
+  numberId: string;
+  serviceName: string;
+  timeStart: Timestamp;
+  timeEnd: Timestamp;
+  status: string;
+  supply: string;
+}
+
+// Hiển thị Giờ - Ngày
+function formatTimestamp(timestamp: any) {
+  const date = timestamp.toDate();
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  const formattedDate = date.toLocaleDateString();
+  return `${hours}:${minutes} - ${formattedDate}`;
+}
 
 function Report() {
+  const [data, setData] = useState<Data[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const collectionRef = collection(db, 'number');
+      const querySnapshot = await getDocs(collectionRef);
+      const newData = querySnapshot.docs.map(doc => doc.data() as Data);
+      setData(newData);
+    };
+
+    fetchData();
+  }, []);
+
+  // Table value
+  const columns = [
+    { Header: 'STT', accessor: 'numberId' },
+    { Header: 'Tên dịch vụ', accessor: 'serviceName' },
+    {
+      Header: 'Thời gian cấp',
+      accessor: 'timeStart',
+      Cell: ({ value }: any) => (
+        <span>{value instanceof Timestamp ? formatTimestamp(value) : ''}</span>
+      ),
+    },
+    {
+      Header: 'Hạn sử dụng',
+      accessor: 'timeEnd',
+      Cell: ({ value }: any) => (
+        <span>{value instanceof Timestamp ? formatTimestamp(value) : ''}</span>
+      ),
+    },
+    { Header: 'Trạng thái', accessor: 'status' },
+    { Header: 'Nguồn cấp', accessor: 'supply' },
+  ];
   return (
     <div className="device__page">
       <div className="header">
@@ -35,7 +91,7 @@ function Report() {
         </div>
 
         <div className="content__board">
-          <div className="content__table"></div>
+          <Table columns={columns} data={data} />
           <button className="add__table">
             <FontAwesomeIcon icon={faSquarePlus} className="add__table-icon" />
             Thêm dịch vụ

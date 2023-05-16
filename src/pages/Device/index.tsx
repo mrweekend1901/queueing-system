@@ -14,16 +14,16 @@ import { useEffect, useState } from 'react';
 import { db } from '../../init/init-firebase';
 import { collection, getDocs } from 'firebase/firestore';
 
-function Device() {
-  interface Data {
-    deviceId: string;
-    deviceName: string;
-    ipAddress: string;
-    activeStatus: boolean;
-    conectStatus: boolean;
-    serviceUse: string;
-  }
+interface Data {
+  deviceId: string;
+  deviceName: string;
+  ipAddress: string;
+  activeStatus: boolean;
+  conectStatus: boolean;
+  serviceUse: string;
+}
 
+function Device() {
   const [data, setData] = useState<Data[]>([]);
 
   useEffect(() => {

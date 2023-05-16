@@ -19,7 +19,8 @@ function Table({ columns, data }: any) {
     navigate('/detailrow', { state: row });
   };
 
-  const shouldShowUpdateColumn = location.pathname !== '/number'; // Kiểm tra path hiện tại
+  const shouldShowUpdateColumn = location.pathname !== '/number' && location.pathname !== '/report'; // Kiểm tra path hiện tại
+  const shouldShowDetailColumn = location.pathname !== '/report'; // Kiểm tra path hiện tại
 
   const tableInstance = useTable({
     columns: memoizedColumns,
@@ -100,7 +101,7 @@ function Table({ columns, data }: any) {
             {headerGroup.headers.map(column => (
               <th {...column.getHeaderProps()}>{column.render('Header')}</th>
             ))}
-            <th></th>
+            {shouldShowDetailColumn && <th></th>}
             {shouldShowUpdateColumn && <th></th>}
           </tr>
         ))}
@@ -121,9 +122,11 @@ function Table({ columns, data }: any) {
                   return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
                 }
               })}
-              <td onClick={() => handleRowClick(row.original)} className="td__click">
-                Chi tiết
-              </td>
+              {shouldShowDetailColumn && (
+                <td onClick={() => handleRowClick(row.original)} className="td__click">
+                  Chi tiết
+                </td>
+              )}
               {shouldShowUpdateColumn && <td className="td__click">Cập nhật</td>}
               {/* <td className="td__click">Cập nhật</td> */}
             </tr>
