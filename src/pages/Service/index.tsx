@@ -9,10 +9,42 @@ import {
   faSquarePlus,
 } from '@fortawesome/free-solid-svg-icons';
 import UserSide from '../../components/UserSide';
+import Table from '../../components/Table';
+import { useEffect, useState } from 'react';
+import { db } from '../../init/init-firebase';
+import { collection, getDocs } from 'firebase/firestore';
 
 function Service() {
+  interface Data {
+    serviceId: string;
+    serviceName: string;
+    serviceDesc: string;
+    activeStatus: boolean;
+  }
+
+  const [data, setData] = useState<Data[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const collectionRef = collection(db, 'service');
+      const querySnapshot = await getDocs(collectionRef);
+      const newData = querySnapshot.docs.map(doc => doc.data() as Data);
+      setData(newData);
+    };
+
+    fetchData();
+  }, []);
+
+  // Table value
+  const columns = [
+    { Header: 'Mã dịch vụ', accessor: 'serviceId' },
+    { Header: 'Tên dịch vụ', accessor: 'serviceName' },
+    { Header: 'Mô tả dịch vụ', accessor: 'serviceDesc' },
+    { Header: 'Trạng thái hoạt động', accessor: 'activeStatus' },
+  ];
+
   return (
-    <div className="device__page">
+    <div className="service__page">
       <div className="header">
         <div className="page__rank">
           <div className="header__fa">Dịch vụ</div>
@@ -57,7 +89,7 @@ function Service() {
         </div>
 
         <div className="content__board">
-          <div className="content__table"></div>
+          <Table columns={columns} data={data} />
           <button className="add__table">
             <FontAwesomeIcon icon={faSquarePlus} className="add__table-icon" />
             Thêm dịch vụ

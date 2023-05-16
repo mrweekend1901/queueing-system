@@ -1,16 +1,15 @@
-.date__from,
-.date__to {
-  width: 150px;
-  height: 44px;
-  padding: 8px 16px;
-  margin-top: 4px;
-  border: 1.5px solid var(--border-color);
-  border-radius: 8px;
-  font-size: 1.6rem;
-  font-weight: 400;
-  color: var(--text-color);
+.service__page .content__feature {
+  justify-content: space-between;
 }
 
-.date__icon {
-  margin: 0 8px;
+.service__page .left__group {
+  display: flex;
+}
+
+.service__page .left__group .feature__group {
+  margin-right: 24px;
+}
+
+.service__page .list__box {
+  width: 300px;
 }

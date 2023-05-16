@@ -1,6 +1,6 @@
 .table {
-  width: 1112px;
-  height: 490px;
+  min-width: 1112px;
+  min-height: 490px;
   border-radius: 12px;
   filter: drop-shadow(2px 2px 8px rgba(232, 239, 244, 0.8));
   overflow: hidden;

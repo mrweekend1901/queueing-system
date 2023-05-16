@@ -9,10 +9,68 @@ import {
   faSquarePlus,
 } from '@fortawesome/free-solid-svg-icons';
 import UserSide from '../../components/UserSide';
+import Table from '../../components/Table';
+import { useEffect, useState } from 'react';
+import { db } from '../../init/init-firebase';
+import { Timestamp, collection, getDocs } from 'firebase/firestore';
+
+interface Data {
+  numberId: string;
+  customerName: string;
+  serviceName: string;
+  timeStart: Timestamp;
+  timeEnd: Timestamp;
+  status: string;
+  supply: string;
+}
+
+// Hiển thị Giờ - Ngày
+function formatTimestamp(timestamp: any) {
+  const date = timestamp.toDate();
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  const formattedDate = date.toLocaleDateString();
+  return `${hours}:${minutes} - ${formattedDate}`;
+}
 
 function Number() {
+  const [data, setData] = useState<Data[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const collectionRef = collection(db, 'number');
+      const querySnapshot = await getDocs(collectionRef);
+      const newData = querySnapshot.docs.map(doc => doc.data() as Data);
+      setData(newData);
+    };
+
+    fetchData();
+  }, []);
+
+  // Table value
+  const columns = [
+    { Header: 'STT', accessor: 'numberId' },
+    { Header: 'Tên khách hàng', accessor: 'customerName' },
+    { Header: 'Tên dịch vụ', accessor: 'serviceName' },
+    {
+      Header: 'Thời gian cấp',
+      accessor: 'timeStart',
+      Cell: ({ value }: any) => (
+        <span>{value instanceof Timestamp ? formatTimestamp(value) : ''}</span>
+      ),
+    },
+    {
+      Header: 'Hạn sử dụng',
+      accessor: 'timeEnd',
+      Cell: ({ value }: any) => (
+        <span>{value instanceof Timestamp ? formatTimestamp(value) : ''}</span>
+      ),
+    },
+    { Header: 'Trạng thái', accessor: 'status' },
+    { Header: 'Nguồn cấp', accessor: 'supply' },
+  ];
   return (
-    <div className="device__page">
+    <div className="number__page">
       <div className="header">
         <div className="page__rank">
           <div className="header__fa">Cấp số</div>
@@ -25,49 +83,69 @@ function Number() {
       <div className="content">
         <div className="content__heading">Quản lý cấp số</div>
         <div className="content__feature">
-          <div className="left__group">
-            <div className="feature__group">
-              <label htmlFor="active-status" className="feature__name">
-                Tên dịch vụ
-              </label>
-              <select name="active-status" id="active-status" className="list__box">
-                <option value="all">Tất cả</option>
-                <option value="active">Khám sản - Phụ khoa</option>
-                <option value="not-active">Khám răng hàm mặt</option>
-                <option value="not-active">Khám tai mũi họng</option>
-              </select>
-            </div>
-            <div className="feature__group">
-              <label htmlFor="active-status" className="feature__name">
-                Tình trạng
-              </label>
-              <select name="active-status" id="active-status" className="list__box">
-                <option value="all">Tất cả</option>
-                <option value="active">Đang chờ</option>
-                <option value="not-active">Đã sử dụng</option>
-                <option value="not-active">Bỏ qua</option>
-              </select>
-            </div>
-            <div className="feature__group">
-              <label htmlFor="active-status" className="feature__name">
-                Nguồn cấp
-              </label>
-              <select name="active-status" id="active-status" className="list__box">
-                <option value="all">Tất cả</option>
-                <option value="active">Kiosk</option>
-                <option value="not-active">Hệ thống</option>
-              </select>
-            </div>
-            <div className="feature__group">
-              <label htmlFor="" className="feature__name">
-                Chọn thời gian
-              </label>
-              <input type="date" className="date__from" />
-              <FontAwesomeIcon icon={faCaretRight} className="date__icon" />
-              <input type="date" className="date__to" />
-            </div>
+          <div className="feature__group">
+            <label htmlFor="active-status" className="feature__name">
+              Tên dịch vụ
+            </label>
+            <select name="active-status" id="active-status" className="list__box">
+              <option className="list__box-item" value="all">
+                Tất cả
+              </option>
+              <option className="list__box-item" value="active">
+                Khám sản - Phụ khoa
+              </option>
+              <option className="list__box-item" value="not-active">
+                Khám răng hàm mặt
+              </option>
+              <option className="list__box-item" value="not-active">
+                Khám tai mũi họng
+              </option>
+            </select>
           </div>
           <div className="feature__group">
+            <label htmlFor="active-status" className="feature__name">
+              Tình trạng
+            </label>
+            <select name="active-status" id="active-status" className="list__box">
+              <option className="list__box-item" value="all">
+                Tất cả
+              </option>
+              <option className="list__box-item" value="active">
+                Đang chờ
+              </option>
+              <option className="list__box-item" value="not-active">
+                Đã sử dụng
+              </option>
+              <option className="list__box-item" value="not-active">
+                Bỏ qua
+              </option>
+            </select>
+          </div>
+          <div className="feature__group">
+            <label htmlFor="active-status" className="feature__name">
+              Nguồn cấp
+            </label>
+            <select name="active-status" id="active-status" className="list__box">
+              <option className="list__box-item" value="all">
+                Tất cả
+              </option>
+              <option className="list__box-item" value="active">
+                Kiosk
+              </option>
+              <option className="list__box-item" value="not-active">
+                Hệ thống
+              </option>
+            </select>
+          </div>
+          <div className="feature__group">
+            <label htmlFor="" className="feature__name">
+              Chọn thời gian
+            </label>
+            <input type="date" className="date__from" />
+            <FontAwesomeIcon icon={faCaretRight} className="date__icon" />
+            <input type="date" className="date__to" />
+          </div>
+          <div className="feature__group search__group">
             <label htmlFor="search-input" className="feature__name">
               Từ khóa
             </label>
@@ -79,7 +157,7 @@ function Number() {
         </div>
 
         <div className="content__board">
-          <div className="content__table"></div>
+          <Table columns={columns} data={data} />
           <button className="add__table">
             <FontAwesomeIcon icon={faSquarePlus} className="add__table-icon" />
             Thêm dịch vụ

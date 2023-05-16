@@ -3,13 +3,14 @@ import './table.css';
 import { useMemo, useState } from 'react';
 import { useTable } from 'react-table';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Table({ columns, data }: any) {
   const memoizedColumns = useMemo(() => columns, [columns]);
   const memoizedData = useMemo(() => data, [data]);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   // // Lấy dữ liệu row
   const [selectedRow, setSelectedRow] = useState(null);
@@ -18,12 +19,18 @@ function Table({ columns, data }: any) {
     navigate('/detailrow', { state: row });
   };
 
-  const tableInstance = useTable({ columns: memoizedColumns, data: memoizedData });
+  const shouldShowUpdateColumn = location.pathname !== '/number'; // Kiểm tra path hiện tại
 
+  const tableInstance = useTable({
+    columns: memoizedColumns,
+    data: memoizedData,
+    // .filter((row: any) => !shouldShowUpdateColumn || row.path !== '/number'),
+  });
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance;
 
+  // hiển thị icon trạng thái hoạt động
   const renderActiveStatus = (cellValue: any) => {
-    if (cellValue === 'Hoạt động') {
+    if (cellValue === true) {
       return (
         <div className="status__space">
           <FontAwesomeIcon icon={faCircle} color="#34CD26" />
@@ -40,8 +47,9 @@ function Table({ columns, data }: any) {
     }
   };
 
+  // hiển thị icon trạng thái kết nối
   const renderConnectStatus = (cellValue: any) => {
-    if (cellValue === 'Kết nối') {
+    if (cellValue === true) {
       return (
         <div className="status__space">
           <FontAwesomeIcon icon={faCircle} color="#34CD26" />
@@ -58,6 +66,32 @@ function Table({ columns, data }: any) {
     }
   };
 
+  // hiển thị icon trạng thái
+  const renderStatus = (cellValue: any) => {
+    if (cellValue === 'waiting') {
+      return (
+        <div className="status__space">
+          <FontAwesomeIcon icon={faCircle} color="#4277FF" />
+          <span className="text__status">Đang chờ</span>
+        </div>
+      );
+    } else if (cellValue === 'used') {
+      return (
+        <div className="status__space">
+          <FontAwesomeIcon icon={faCircle} color="#7E7D88" />
+          <span className="text__status">Đã sử dụng</span>
+        </div>
+      );
+    } else {
+      return (
+        <div className="status__space">
+          <FontAwesomeIcon icon={faCircle} color="#E73F3F" />
+          <span className="text__status">Bỏ qua</span>
+        </div>
+      );
+    }
+  };
+
   return (
     <table className="table" {...getTableProps()}>
       <thead>
@@ -67,7 +101,7 @@ function Table({ columns, data }: any) {
               <th {...column.getHeaderProps()}>{column.render('Header')}</th>
             ))}
             <th></th>
-            <th></th>
+            {shouldShowUpdateColumn && <th></th>}
           </tr>
         ))}
       </thead>
@@ -81,15 +115,17 @@ function Table({ columns, data }: any) {
                   return <td {...cell.getCellProps()}>{renderActiveStatus(cell.value)}</td>;
                 } else if (cell.column.id === 'conectStatus') {
                   return <td {...cell.getCellProps()}>{renderConnectStatus(cell.value)}</td>;
+                } else if (cell.column.id === 'status') {
+                  return <td {...cell.getCellProps()}>{renderStatus(cell.value)}</td>;
                 } else {
                   return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
                 }
               })}
-
               <td onClick={() => handleRowClick(row.original)} className="td__click">
                 Chi tiết
               </td>
-              <td className="td__click">Cập nhật</td>
+              {shouldShowUpdateColumn && <td className="td__click">Cập nhật</td>}
+              {/* <td className="td__click">Cập nhật</td> */}
             </tr>
           );
         })}

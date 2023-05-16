@@ -10,8 +10,33 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import UserSide from '../../components/UserSide';
 import Table from '../../components/Table';
+import { useEffect, useState } from 'react';
+import { db } from '../../init/init-firebase';
+import { collection, getDocs } from 'firebase/firestore';
 
 function Device() {
+  interface Data {
+    deviceId: string;
+    deviceName: string;
+    ipAddress: string;
+    activeStatus: boolean;
+    conectStatus: boolean;
+    serviceUse: string;
+  }
+
+  const [data, setData] = useState<Data[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const collectionRef = collection(db, 'device');
+      const querySnapshot = await getDocs(collectionRef);
+      const newData = querySnapshot.docs.map(doc => doc.data() as Data);
+      setData(newData);
+    };
+
+    fetchData();
+  }, []);
+
   // Table value
   const columns = [
     { Header: 'Mã thiết bị', accessor: 'deviceId' },
@@ -20,57 +45,6 @@ function Device() {
     { Header: 'Trạng thái hoạt động', accessor: 'activeStatus' },
     { Header: 'Trạng thái kết nối', accessor: 'conectStatus' },
     { Header: 'Dịch vụ sử dụng', accessor: 'serviceUse' },
-  ];
-
-  const data = [
-    {
-      deviceId: 'KIO_01',
-      deviceName: 'Kiosk',
-      ipAddress: '192.168.1.10',
-      activeStatus: 'Ngưng hoạt động',
-      conectStatus: 'Mất kết nối',
-      serviceUse: 'Khắm mắt, khám tai',
-    },
-    {
-      deviceId: 'KIO_01',
-      deviceName: 'Kiosk',
-      ipAddress: '192.168.1.10',
-      activeStatus: 'Hoạt động',
-      conectStatus: 'Kết nối',
-      serviceUse: 'Khắm mắt, khám tai',
-    },
-    {
-      deviceId: 'KIO_01',
-      deviceName: 'Kiosk',
-      ipAddress: '192.168.1.10',
-      activeStatus: 'Ngưng hoạt động',
-      conectStatus: 'Mất kết nối',
-      serviceUse: 'Khắm mắt, khám tai',
-    },
-    {
-      deviceId: 'KIO_01',
-      deviceName: 'Kiosk',
-      ipAddress: '192.168.1.10',
-      activeStatus: 'Ngưng hoạt động',
-      conectStatus: 'Mất kết nối',
-      serviceUse: 'Khắm mắt, khám tai',
-    },
-    {
-      deviceId: 'KIO_01',
-      deviceName: 'Kiosk',
-      ipAddress: '192.168.1.10',
-      activeStatus: 'Hoạt động',
-      conectStatus: 'Kết nối',
-      serviceUse: 'Khắm mắt, khám tai',
-    },
-    {
-      deviceId: 'KIO_01',
-      deviceName: 'Kiosk',
-      ipAddress: '192.168.1.10',
-      activeStatus: 'Ngưng hoạt động',
-      conectStatus: 'Mất kết nối',
-      serviceUse: 'Khắm mắt, khám tai',
-    },
   ];
 
   return (

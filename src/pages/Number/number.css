@@ -1,0 +1,19 @@
+.number__page .feature__group:not(:last-child) {
+  margin-right: 24px;
+}
+
+.number__page .list__box {
+  width: 154px;
+}
+
+.number__page .search__group {
+  flex: 1;
+}
+
+.number__page .search-input {
+  width: 100%;
+}
+
+.number__page .td__click {
+  width: 78px;
+}
