@@ -1,5 +1,7 @@
 .login-form {
-  margin-left: 94px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .newpass-container,
@@ -19,10 +21,12 @@
 }
 
 .forget-password {
+  align-self: flex-start;
   display: block;
   text-decoration: none;
   color: #e73f3f;
   font-size: 1.4rem;
   font-weight: 400;
   line-height: 21px;
+  margin-left: 96px;
 }

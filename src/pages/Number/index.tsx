@@ -33,7 +33,7 @@ function formatTimestamp(timestamp: any) {
   return `${hours}:${minutes} - ${formattedDate}`;
 }
 
-function Number() {
+function NumberPage() {
   const [data, setData] = useState<Data[]>([]);
 
   useEffect(() => {
@@ -183,4 +183,4 @@ function Number() {
   );
 }
 
-export default Number;
+export default NumberPage;

@@ -42,9 +42,6 @@
   padding: 10px 12px 10px 12px;
 }
 
-.picture-side {
-}
-
 .login-img {
   position: relative;
   width: 605px;
@@ -75,7 +72,7 @@
 .form-submit {
   border: none;
   color: #fff;
-  margin: 19px 121px;
+  margin: 24px 0 8px;
   background-color: var(--primary-btn);
 }
 
@@ -91,6 +88,28 @@
   color: #fff;
   margin-left: 22px;
   background-color: var(--primary-btn);
+}
+
+/* Input error */
+.input-error {
+  border: 1.5px solid #e73f3f;
+}
+
+.form__message {
+  display: flex;
+  align-items: center;
+  color: #e73f3f;
+  margin-top: 14px;
+}
+
+.error__icon {
+  font-size: 1.6rem;
+  padding-right: 5px;
+}
+
+.error__text {
+  font-size: 1.4rem;
+  font-weight: 400;
 }
 
 /* Header pages css */

@@ -43,18 +43,23 @@ const Sidebar = ({ children }: any) => {
       icon: <img src={images.setting} alt="dasgboard_icon" />,
     },
   ];
+
   return (
     <div className="container">
       <div className="sidebar">
         <div className="top_section">
           <img src={images.logo} alt="logo_Alta" />
         </div>
-        {menuItem.map((item: MenuItem, index: number) => (
-          <NavLink to={item.path} key={index} className="link">
-            <div className="icon">{item.icon}</div>
-            <div className="link_text">{item.name}</div>
-          </NavLink>
-        ))}
+        <ul>
+          {menuItem.map((item: MenuItem, index: number) => (
+            <li key={index}>
+              <NavLink to={item.path} className="link">
+                <div className="icon">{item.icon}</div>
+                <div className="link_text">{item.name}</div>
+              </NavLink>
+            </li>
+          ))}
+        </ul>
         <button className="btn btn-logout">
           <FontAwesomeIcon icon={faRightFromBracket} className="logout__icon" />
           Đăng xuất
