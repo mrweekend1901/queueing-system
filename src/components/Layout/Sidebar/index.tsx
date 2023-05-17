@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import images from '../../../assets/images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 interface MenuItem {
   path: string;
@@ -48,7 +49,9 @@ const Sidebar = ({ children }: any) => {
     <div className="container">
       <div className="sidebar">
         <div className="top_section">
-          <img src={images.logo} alt="logo_Alta" />
+          <Link to="/home">
+            <img src={images.logo} alt="logo_Alta" />
+          </Link>
         </div>
         <ul>
           {menuItem.map((item: MenuItem, index: number) => (

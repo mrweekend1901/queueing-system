@@ -30,3 +30,7 @@
   line-height: 21px;
   margin-left: 96px;
 }
+
+.login-page .form-group {
+  margin-bottom: 16px;
+}
