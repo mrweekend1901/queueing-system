@@ -13,6 +13,7 @@ import Table from '../../components/Table';
 import { useEffect, useState } from 'react';
 import { db } from '../../init/init-firebase';
 import { collection, getDocs } from 'firebase/firestore';
+import { Link } from 'react-router-dom';
 
 function Service() {
   interface Data {
@@ -90,10 +91,12 @@ function Service() {
 
         <div className="content__board">
           <Table columns={columns} data={data} />
-          <button className="add__table">
-            <FontAwesomeIcon icon={faSquarePlus} className="add__table-icon" />
-            Thêm dịch vụ
-          </button>
+          <Link to="/addservice" className="addtable__link">
+            <button className="add__table">
+              <FontAwesomeIcon icon={faSquarePlus} className="add__table-icon" />
+              Thêm dịch vụ
+            </button>
+          </Link>
         </div>
       </div>
 

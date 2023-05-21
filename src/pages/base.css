@@ -89,6 +89,10 @@
   background-color: var(--primary-btn);
 }
 
+.addtable__link {
+  text-decoration: none;
+}
+
 /* Input error */
 .input-error {
   border: 1.5px solid #e73f3f;

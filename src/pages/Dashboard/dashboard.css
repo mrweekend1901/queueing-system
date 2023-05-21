@@ -1,0 +1,141 @@
+:root {
+  --color-background1: 102, 149, 251;
+  --color-background2: 53, 199, 90;
+  --color-background3: 255, 172, 106;
+  --color-background4: 248, 109, 109;
+  --color-background-percent1: 255, 149, 1;
+  --color-background-percent2: 231, 63, 63;
+}
+
+.dashboard__page .header__fa {
+  color: var(--primary-btn);
+}
+
+.content__chart-wrapper {
+  margin-top: 16px;
+}
+
+.popup-group {
+  width: 790px;
+  height: 128px;
+  display: flex;
+}
+
+.popup-group .popup-item:not(:last-child) {
+  margin-right: 13px;
+}
+
+.popup-item {
+  width: 186px;
+  height: 120px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.popup-item-top {
+  display: flex;
+  align-items: center;
+  margin: 8px 12px 12px 12px;
+}
+
+.popup-item-bot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 12px 8px 12px;
+}
+
+.popup-item-number {
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 45px;
+  color: var(--text-color);
+}
+
+.popup-percent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 15px;
+  border-radius: 8px;
+}
+
+.background-percent1 {
+  background-color: rgba(var(--color-background-percent1), 0.15);
+}
+
+.background-percent2 {
+  background-color: rgba(var(--color-background-percent2), 0.15);
+}
+
+.percent1 {
+  color: rgb(var(--color-background-percent1));
+}
+
+.percent2 {
+  color: rgb(var(--color-background-percent2));
+}
+
+.popup-item-border-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+.popup-item-icon {
+  font-size: 2.4rem;
+}
+
+.background-icon1 {
+  background-color: rgba(var(--color-background1), 0.15);
+}
+
+.background-icon2 {
+  background-color: rgba(var(--color-background2), 0.15);
+}
+
+.background-icon3 {
+  background-color: rgba(var(--color-background3), 0.15);
+}
+
+.background-icon4 {
+  background-color: rgba(var(--color-background4), 0.15);
+}
+
+.icon1 {
+  color: rgb(var(--color-background1));
+}
+
+.icon2 {
+  color: rgb(var(--color-background2));
+}
+
+.icon3 {
+  color: rgb(var(--color-background3));
+}
+
+.icon4 {
+  color: rgb(var(--color-background4));
+}
+
+.popup-item-name {
+  max-width: 75px;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.popup-percent-icon {
+  font-size: 0.7rem;
+  margin-bottom: 1px;
+  margin-right: 4px;
+}
+
+.popup-number-percent {
+  font-weight: 400;
+  font-size: 8px;
+}

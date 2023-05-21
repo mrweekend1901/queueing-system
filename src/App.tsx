@@ -11,6 +11,9 @@ import Setting from './pages/Setting';
 import Dashboard from './pages/Dashboard';
 import DetailRow from './components/Table/DetailRow';
 import NumberPage from './pages/Number';
+import Adddevice from './components/Table/Addtable/Adddevice';
+import Addservice from './components/Table/Addtable/Addservice';
+import Addnumber from './components/Table/Addtable/Addnumber';
 
 function App() {
   return (
@@ -40,6 +43,9 @@ function MainContent() {
           <Route path="/report" element={<Report />} />
           <Route path="/setting" element={<Setting />} />
           <Route path="/detailrow" element={<DetailRow />} />
+          <Route path="/adddevice" element={<Adddevice />} />
+          <Route path="/addservice" element={<Addservice />} />
+          <Route path="/addnumber" element={<Addnumber />} />
         </Routes>
       </Sidebar>
     </>

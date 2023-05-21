@@ -1,0 +1,65 @@
+.content__body {
+  width: 1178px;
+  height: 534px;
+  box-shadow: 2px 2px 8px rgba(232, 239, 244, 0.8);
+  border-radius: 16px;
+  background-color: #fff;
+  margin-top: 16px;
+}
+
+.content__label {
+  padding: 16px 24px;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 30px;
+  color: var(--primary);
+}
+
+.form__label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--bold-text);
+}
+
+.form__value,
+.form__value--full-width {
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--text-color);
+  width: 540px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border-color);
+}
+
+.form__value--full-width {
+  width: 1104px;
+}
+
+.form__label--icon {
+  color: #ff4747;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.content__message {
+  margin-top: 14px;
+  margin-left: 24px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--placeholder-color);
+}
+
+.btn__group {
+  display: flex;
+  justify-content: center;
+  width: 1152px;
+}
+
+.add__page .form-cancel {
+  margin: 24px 32px 8px;
+}

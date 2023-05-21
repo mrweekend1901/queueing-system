@@ -13,6 +13,7 @@ import Table from '../../components/Table';
 import { useEffect, useState } from 'react';
 import { db } from '../../init/init-firebase';
 import { collection, getDocs } from 'firebase/firestore';
+import { Link } from 'react-router-dom';
 
 interface Data {
   deviceId: string;
@@ -96,10 +97,12 @@ function Device() {
 
         <div className="content__board">
           <Table columns={columns} data={data} />
-          <button className="add__table">
-            <FontAwesomeIcon icon={faSquarePlus} className="add__table-icon" />
-            Thêm thiết bị
-          </button>
+          <Link to="/adddevice" className="addtable__link">
+            <button className="add__table">
+              <FontAwesomeIcon icon={faSquarePlus} className="add__table-icon" />
+              Thêm thiết bị
+            </button>
+          </Link>
         </div>
       </div>
 

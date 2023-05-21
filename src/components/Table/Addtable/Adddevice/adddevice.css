@@ -1,0 +1,18 @@
+.adddevice__page .form__add--2-col,
+.adddevice__page .form__add--1-col {
+  display: flex;
+  padding: 4px 24px;
+}
+
+.adddevice__page .form__add--2-col {
+  flex-wrap: wrap;
+}
+
+.adddevice__page .form__add--1-col .form__group {
+  width: 100%;
+}
+
+.adddevice__page .form__add--2-col .form__group {
+  width: 50%;
+  margin-bottom: 16px;
+}

@@ -1,0 +1,54 @@
+.addservice__page .form__add--2-col {
+  width: 50%;
+}
+
+.addservice__page .form__add--1-col {
+  width: 100%;
+}
+
+.addservice__page .content__group {
+  display: flex;
+  margin-left: 24px;
+}
+
+/* .addservice__page .content__group .form__group:first-child {
+  margin-bottom: 21px;
+} */
+
+.form__value-service {
+  height: 132px;
+  vertical-align: top;
+}
+
+.addservice__page .checkbox__text {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--bold-text);
+}
+
+.form__add--1-col .form__group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.input__number {
+  width: 61px;
+  height: 44px;
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--text-color);
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border-color);
+}
+
+.checkbox__value {
+  margin-right: 8px;
+}
+
+.input__number {
+  margin-right: 12px;
+  margin-left: 15px;
+}
