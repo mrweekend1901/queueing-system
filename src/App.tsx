@@ -43,9 +43,9 @@ function MainContent() {
           <Route path="/report" element={<Report />} />
           <Route path="/setting" element={<Setting />} />
           <Route path="/detailrow" element={<DetailRow />} />
-          <Route path="/adddevice" element={<Adddevice />} />
-          <Route path="/addservice" element={<Addservice />} />
-          <Route path="/addnumber" element={<Addnumber />} />
+          <Route path="/device/adddevice" element={<Adddevice />} />
+          <Route path="/service/addservice" element={<Addservice />} />
+          <Route path="/number/addnumber" element={<Addnumber />} />
         </Routes>
       </Sidebar>
     </>

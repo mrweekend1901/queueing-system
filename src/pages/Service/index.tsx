@@ -91,7 +91,7 @@ function Service() {
 
         <div className="content__board">
           <Table columns={columns} data={data} />
-          <Link to="/addservice" className="addtable__link">
+          <Link to="/service/addservice" className="addtable__link">
             <button className="add__table">
               <FontAwesomeIcon icon={faSquarePlus} className="add__table-icon" />
               Thêm dịch vụ
