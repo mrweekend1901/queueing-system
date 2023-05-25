@@ -27,7 +27,7 @@
   color: var(--bold-text);
 }
 
-.form__add--1-col .form__group {
+.addservice__page .form__add--1-col .form__group {
   display: flex;
   align-items: center;
   margin-bottom: 12px;

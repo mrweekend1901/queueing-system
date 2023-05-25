@@ -114,7 +114,7 @@ function Table({ columns, data }: any) {
               {row.cells.map(cell => {
                 if (cell.column.id === 'activeStatus') {
                   return <td {...cell.getCellProps()}>{renderActiveStatus(cell.value)}</td>;
-                } else if (cell.column.id === 'conectStatus') {
+                } else if (cell.column.id === 'connectStatus') {
                   return <td {...cell.getCellProps()}>{renderConnectStatus(cell.value)}</td>;
                 } else if (cell.column.id === 'status') {
                   return <td {...cell.getCellProps()}>{renderStatus(cell.value)}</td>;

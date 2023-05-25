@@ -28,6 +28,7 @@
 .form__value--full-width {
   font-weight: 400;
   font-size: 16px;
+  height: 44px;
   color: var(--text-color);
   width: 540px;
   padding: 10px 12px;
