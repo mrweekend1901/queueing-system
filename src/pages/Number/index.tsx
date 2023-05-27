@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 import { db } from '../../init/init-firebase';
 import { Timestamp, collection, getDocs } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
+import DropDown from '../../components/Dropdown';
 
 interface Data {
   numberId: string;
@@ -25,17 +26,44 @@ interface Data {
   supply: string;
 }
 
+const dropdownServiceName = [
+  'Tất cả',
+  'Khám tổng quát',
+  'Khám sản - Phụ khoa',
+  'Khám tim mạch',
+  'Khám mũi họng',
+];
+const dropdownStatus = ['Tất cả', 'Đang chờ', 'Bỏ qua', 'Đã sử dụng'];
+
+const dropdownType = ['Tất cả', 'Kiosk', 'Hệ thống'];
+
 // Hiển thị Giờ - Ngày
-function formatTimestamp(timestamp: any) {
-  const date = timestamp.toDate();
-  const hours = date.getHours().toString().padStart(2, '0');
-  const minutes = date.getMinutes().toString().padStart(2, '0');
-  const formattedDate = date.toLocaleDateString();
-  return `${hours}:${minutes} - ${formattedDate}`;
+export function formatTimestamp(timestamp: any) {
+  if (typeof timestamp === 'object' && timestamp.seconds && timestamp.nanoseconds) {
+    const newTimestamp = Timestamp.fromMillis(
+      timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000,
+    );
+    const date = newTimestamp.toDate();
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const formattedDate = date.toLocaleDateString();
+    return `${hours}:${minutes} - ${formattedDate}`;
+  }
+  return '';
 }
 
 function NumberPage() {
   const [data, setData] = useState<Data[]>([]);
+  const [filter, setFilter] = useState({
+    serviceName: 'Tất cả',
+    status: 'Tất cả',
+    supply: 'Tất cả',
+  });
+  const [searchKeyword, setSearchKeyword] = useState('');
+
+  const handleDropdownSelect = (selectedOption: string, kind: string) => {
+    setFilter({ ...filter, [kind]: selectedOption });
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,6 +75,31 @@ function NumberPage() {
 
     fetchData();
   }, []);
+
+  const filteredData = data.filter(row => {
+    if (searchKeyword.trim() !== '') {
+      const keyword = searchKeyword.toLowerCase();
+      const deviceName = row.customerName.toLowerCase();
+      const deviceId = row.numberId.toLowerCase();
+      if (!deviceName.includes(keyword) && !deviceId.includes(keyword)) {
+        return false;
+      }
+    }
+    if (filter.serviceName !== 'Tất cả' && row.serviceName !== filter.serviceName) {
+      return false;
+    }
+    if (filter.status !== 'Tất cả' && row.status !== filter.status) {
+      return false;
+    }
+    if (filter.supply !== 'Tất cả' && row.supply !== filter.supply) {
+      return false;
+    }
+    return true;
+  });
+
+  const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchKeyword(event.target.value);
+  };
 
   // Table value
   const columns = [
@@ -89,55 +142,40 @@ function NumberPage() {
             <label htmlFor="active-status" className="feature__name">
               Tên dịch vụ
             </label>
-            <select name="active-status" id="active-status" className="list__box">
-              <option className="list__box-item" value="all">
-                Tất cả
-              </option>
-              <option className="list__box-item" value="active">
-                Khám sản - Phụ khoa
-              </option>
-              <option className="list__box-item" value="not-active">
-                Khám răng hàm mặt
-              </option>
-              <option className="list__box-item" value="not-active">
-                Khám tai mũi họng
-              </option>
-            </select>
+            <DropDown
+              id="dropdownFilterconnect"
+              placeholder="Tất cả"
+              dropdownWidth="154px"
+              dropdownHeight="44px"
+              options={dropdownServiceName}
+              onSelect={selectedOption => handleDropdownSelect(selectedOption, 'serviceName')}
+            />
           </div>
           <div className="feature__group">
             <label htmlFor="active-status" className="feature__name">
               Tình trạng
             </label>
-            <select name="active-status" id="active-status" className="list__box">
-              <option className="list__box-item" value="all">
-                Tất cả
-              </option>
-              <option className="list__box-item" value="active">
-                Đang chờ
-              </option>
-              <option className="list__box-item" value="not-active">
-                Đã sử dụng
-              </option>
-              <option className="list__box-item" value="not-active">
-                Bỏ qua
-              </option>
-            </select>
+            <DropDown
+              id="dropdownFilterconnect"
+              placeholder="Tất cả"
+              dropdownWidth="154px"
+              dropdownHeight="44px"
+              options={dropdownStatus}
+              onSelect={selectedOption => handleDropdownSelect(selectedOption, 'status')}
+            />
           </div>
           <div className="feature__group">
             <label htmlFor="active-status" className="feature__name">
               Nguồn cấp
             </label>
-            <select name="active-status" id="active-status" className="list__box">
-              <option className="list__box-item" value="all">
-                Tất cả
-              </option>
-              <option className="list__box-item" value="active">
-                Kiosk
-              </option>
-              <option className="list__box-item" value="not-active">
-                Hệ thống
-              </option>
-            </select>
+            <DropDown
+              id="dropdownFilterconnect"
+              placeholder="Tất cả"
+              dropdownWidth="154px"
+              dropdownHeight="44px"
+              options={dropdownType}
+              onSelect={selectedOption => handleDropdownSelect(selectedOption, 'supply')}
+            />
           </div>
           <div className="feature__group">
             <label htmlFor="" className="feature__name">
@@ -152,18 +190,24 @@ function NumberPage() {
               Từ khóa
             </label>
             <span className="input__container">
-              <input type="text" className="search-input" placeholder="Nhập từ khóa..." />
+              <input
+                type="text"
+                className="search-input"
+                placeholder="Nhập từ khóa..."
+                value={searchKeyword}
+                onChange={handleSearchInputChange}
+              />
               <FontAwesomeIcon className="search-input-icon" icon={faSearch} />
             </span>
           </div>
         </div>
 
         <div className="content__board">
-          <Table columns={columns} data={data} />
+          <Table columns={columns} data={filteredData} />
           <Link to="/number/addnumber" className="addtable__link">
             <button className="add__table">
               <FontAwesomeIcon icon={faSquarePlus} className="add__table-icon" />
-              Thêm dịch vụ
+              Cấp số mới
             </button>
           </Link>
         </div>

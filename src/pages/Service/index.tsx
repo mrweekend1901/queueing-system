@@ -14,16 +14,51 @@ import { useEffect, useState } from 'react';
 import { db } from '../../init/init-firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
+import DropDown from '../../components/Dropdown';
+
+interface Data {
+  serviceId: string;
+  serviceName: string;
+  serviceDesc: string;
+  activeStatus: boolean;
+}
+
+const dropdownAction = ['Tất cả', 'Hoạt động', 'Ngưng hoạt động'];
 
 function Service() {
-  interface Data {
-    serviceId: string;
-    serviceName: string;
-    serviceDesc: string;
-    activeStatus: boolean;
-  }
-
   const [data, setData] = useState<Data[]>([]);
+  const [filter, setFilter] = useState({
+    activeStatus: 'Tất cả',
+    connectStatus: 'Tất cả',
+  });
+  const [searchKeyword, setSearchKeyword] = useState('');
+
+  const handleDropdownSelect = (selectedOption: string, kind: string) => {
+    setFilter({ ...filter, [kind]: selectedOption });
+  };
+
+  const filteredData = data.filter(row => {
+    if (
+      filter.activeStatus !== 'Tất cả' &&
+      filter.activeStatus !== (row.activeStatus ? 'Hoạt động' : 'Ngưng hoạt động')
+    ) {
+      return false;
+    }
+
+    if (searchKeyword.trim() !== '') {
+      const keyword = searchKeyword.toLowerCase();
+      const deviceName = row.serviceName.toLowerCase();
+      const deviceId = row.serviceId.toLowerCase();
+      if (!deviceName.includes(keyword) && !deviceId.includes(keyword)) {
+        return false;
+      }
+    }
+    return true;
+  });
+
+  const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchKeyword(event.target.value);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -63,11 +98,14 @@ function Service() {
               <label htmlFor="active-status" className="feature__name">
                 Trạng thái hoạt động
               </label>
-              <select name="active-status" id="active-status" className="list__box">
-                <option value="all">Tất cả</option>
-                <option value="active">Hoạt động</option>
-                <option value="not-active">Ngưng hoạt động</option>
-              </select>
+              <DropDown
+                id="dropdownFilteraction"
+                placeholder="Tất cả"
+                dropdownWidth="300px"
+                dropdownHeight="44px"
+                options={dropdownAction}
+                onSelect={selectedOption => handleDropdownSelect(selectedOption, 'activeStatus')}
+              />
             </div>
             <div className="feature__group">
               <label htmlFor="" className="feature__name">
@@ -83,14 +121,20 @@ function Service() {
               Từ khóa
             </label>
             <span className="input__container">
-              <input type="text" className="search-input" placeholder="Nhập từ khóa..." />
+              <input
+                type="text"
+                className="search-input"
+                placeholder="Nhập từ khóa..."
+                value={searchKeyword}
+                onChange={handleSearchInputChange}
+              />
               <FontAwesomeIcon className="search-input-icon" icon={faSearch} />
             </span>
           </div>
         </div>
 
         <div className="content__board">
-          <Table columns={columns} data={data} />
+          <Table columns={columns} data={filteredData} />
           <Link to="/service/addservice" className="addtable__link">
             <button className="add__table">
               <FontAwesomeIcon icon={faSquarePlus} className="add__table-icon" />

@@ -9,11 +9,12 @@ import Sidebar from './components/Layout/Sidebar';
 import Home from './pages/Home';
 import Setting from './pages/Setting';
 import Dashboard from './pages/Dashboard';
-import DetailRow from './components/Table/DetailRow';
 import NumberPage from './pages/Number';
 import Adddevice from './components/Table/Addtable/Adddevice';
 import Addservice from './components/Table/Addtable/Addservice';
 import Addnumber from './components/Table/Addtable/Addnumber';
+import DetailDevice from './components/Table/DetailRow/DetailDevice';
+import DetailNumber from './components/Table/DetailRow/DetailNumber';
 
 function App() {
   return (
@@ -42,10 +43,11 @@ function MainContent() {
           <Route path="/number" element={<NumberPage />} />
           <Route path="/report" element={<Report />} />
           <Route path="/setting" element={<Setting />} />
-          <Route path="/detailrow" element={<DetailRow />} />
           <Route path="/device/adddevice" element={<Adddevice />} />
           <Route path="/service/addservice" element={<Addservice />} />
           <Route path="/number/addnumber" element={<Addnumber />} />
+          <Route path="/number/detailnumber" element={<DetailNumber />} />
+          <Route path="/device/detaildevice" element={<DetailDevice />} />
         </Routes>
       </Sidebar>
     </>

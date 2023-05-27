@@ -16,7 +16,14 @@ function Table({ columns, data }: any) {
   const [selectedRow, setSelectedRow] = useState(null);
   const handleRowClick = (row: any) => {
     setSelectedRow(row);
-    navigate('/detailrow', { state: row });
+
+    if (location.pathname === '/device') {
+      navigate('/device/detaildevice', { state: row });
+    } else if (location.pathname === '/service') {
+      navigate('/service/detailservice', { state: row });
+    } else if (location.pathname === '/number') {
+      navigate('/number/detailnumber', { state: row });
+    }
   };
 
   const shouldShowUpdateColumn = location.pathname !== '/number' && location.pathname !== '/report'; // Kiểm tra path hiện tại
@@ -69,14 +76,14 @@ function Table({ columns, data }: any) {
 
   // hiển thị icon trạng thái
   const renderStatus = (cellValue: any) => {
-    if (cellValue === 'waiting') {
+    if (cellValue === 'Đang chờ') {
       return (
         <div className="status__space">
           <FontAwesomeIcon icon={faCircle} color="#4277FF" />
           <span className="text__status">Đang chờ</span>
         </div>
       );
-    } else if (cellValue === 'used') {
+    } else if (cellValue === 'Đã sử dụng') {
       return (
         <div className="status__space">
           <FontAwesomeIcon icon={faCircle} color="#7E7D88" />
