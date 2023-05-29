@@ -70,3 +70,16 @@
   font-weight: 400;
   color: #7e7d88;
 }
+
+.range-start {
+  background-color: #f4f4f4;
+}
+
+.range-end {
+  background-color: #f4f4f4;
+}
+
+.selected-day {
+  background-color: #bfbfbf;
+  color: #ffffff;
+}

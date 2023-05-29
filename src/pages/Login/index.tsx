@@ -12,8 +12,7 @@ import { collection, getDocs } from 'firebase/firestore';
 
 function Login() {
   const navigate = useNavigate();
-  const [user, setUser] = useState('');
-  const [pass, setPass] = useState('');
+  const [loginData, setLoginData] = useState({ username: '', password: '' });
   const [showPass, setShowPass] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -34,8 +33,9 @@ function Login() {
       const querySnapshot = await getDocs(collection(db, 'users'));
       querySnapshot.forEach(doc => {
         const data = doc.data();
-        if (data?.username === user && data?.password === pass) {
-          // Đăng nhập thành công, chuyển hướng đến trang "/home"
+        if (data?.username === loginData.username && data?.password === loginData.password) {
+          // Đăng nhập thành công, chuyển hướng đến trang "/home" và truyền dữ liệu loginData
+          localStorage.setItem('loginData', JSON.stringify(loginData));
           navigate('/home');
         } else {
           setErrorMessage('Sai mật khẩu hoặc tên đăng nhập');
@@ -60,13 +60,13 @@ function Login() {
             </label>
             <div className="login-container">
               <input
-                value={user}
+                value={loginData.username}
                 id="username"
                 name="username"
                 type="text"
                 placeholder="Nhập tên đăng nhập..."
                 className={`form-control ${errorMessage ? 'input-error' : ''}`}
-                onChange={e => setUser(e.target.value)}
+                onChange={e => setLoginData({ ...loginData, username: e.target.value })}
               />
             </div>
           </div>
@@ -77,13 +77,13 @@ function Login() {
             </label>
             <div className="password-container">
               <input
-                value={pass}
+                value={loginData.password}
                 id="password"
                 name="password"
                 type={inputType}
                 placeholder="Nhập mật khẩu..."
                 className={`form-control ${errorMessage ? 'input-error' : ''}`}
-                onChange={e => setPass(e.target.value)}
+                onChange={e => setLoginData({ ...loginData, password: e.target.value })}
               />
               <FontAwesomeIcon
                 className="eyes-icon"

@@ -15,6 +15,7 @@ import Addservice from './components/Table/Addtable/Addservice';
 import Addnumber from './components/Table/Addtable/Addnumber';
 import DetailDevice from './components/Table/DetailRow/DetailDevice';
 import DetailNumber from './components/Table/DetailRow/DetailNumber';
+import DetailService from './components/Table/DetailRow/DetailService';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function MainContent() {
           <Route path="/setting" element={<Setting />} />
           <Route path="/device/adddevice" element={<Adddevice />} />
           <Route path="/service/addservice" element={<Addservice />} />
+          <Route path="/service/detailservice" element={<DetailService />} />
           <Route path="/number/addnumber" element={<Addnumber />} />
           <Route path="/number/detailnumber" element={<DetailNumber />} />
           <Route path="/device/detaildevice" element={<DetailDevice />} />

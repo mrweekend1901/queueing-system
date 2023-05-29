@@ -19,7 +19,8 @@
   margin-bottom: 16px;
 }
 
-.content__detail .detail__label {
+.content__detail .detail__label,
+.detail__page .detail__label {
   font-weight: 600;
   font-size: 16px;
   line-height: 24px;
@@ -27,7 +28,8 @@
   margin-right: 43px;
 }
 
-.content__detail .detail__value {
+.content__detail .detail__value,
+.detail__group .detail__value {
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
@@ -85,4 +87,41 @@
 
 .btn__link {
   text-decoration: none;
+}
+
+.detail__group {
+  display: flex;
+  margin-left: 24px;
+  margin-bottom: 12px;
+}
+
+.content__group .form__group {
+  margin-left: 24px;
+  margin-bottom: 12px;
+}
+
+.detail__page .detail__label.no-marin-left {
+  margin-right: 0;
+}
+
+.detail__page .content__body.content__body--small {
+  width: 370px;
+  margin-right: 24px;
+}
+
+.detail__page .content__body.content__body--big {
+  width: 718px;
+}
+
+.content__feature-head {
+  display: flex;
+  margin: 16px 25px;
+}
+
+.detail__page .feature__group--calendar {
+  position: relative;
+}
+
+.detail__page .calendar-picker {
+  position: absolute;
 }

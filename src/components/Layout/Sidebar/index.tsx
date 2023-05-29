@@ -1,4 +1,4 @@
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
@@ -56,6 +56,15 @@ const Sidebar = ({ children }: any) => {
     );
   };
 
+  const navigate = useNavigate();
+  // Xử lý logic đăng xuất
+  const handleLogout = () => {
+    // Xóa loginData từ localStorage
+    localStorage.removeItem('loginData');
+    // Chuyển hướng đến trang đăng nhập
+    navigate('/login');
+  };
+
   return (
     <div className="container">
       <div className="sidebar">
@@ -65,7 +74,7 @@ const Sidebar = ({ children }: any) => {
           </Link>
         </div>
         <ul>{menuItem.map((item: MenuItem, index: number) => renderMenuItem(item, index))}</ul>
-        <button className="btn btn-logout">
+        <button className="btn btn-logout" onClick={handleLogout}>
           <FontAwesomeIcon icon={faRightFromBracket} className="logout__icon" />
           Đăng xuất
         </button>

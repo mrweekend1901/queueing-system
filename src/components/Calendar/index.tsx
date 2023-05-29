@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import './Calendar.css';
+import React, { useState } from 'react';
+import '../CalendarPicker/CalendarPicker.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
-// Định nghĩa kiểu dữ liệu cho một ngày trong lịch
+type CalendarPickerProps = {};
+
 type CalendarDate = {
   day: number;
   month: number;
   year: number;
 };
 
-// Mảng các tên tháng trong năm
 const monthNames: string[] = [
   'Jan',
   'Feb',
@@ -26,130 +26,85 @@ const monthNames: string[] = [
   'Dec',
 ];
 
-const Calendar: React.FC = () => {
-  // Sử dụng hook useState để lưu trữ ngày được chọn
-  const [selectedDate, setSelectedDate] = useState<CalendarDate | null>(null);
+const Calendar: React.FC<CalendarPickerProps> = () => {
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
 
-  //Ngày hiện tại khi lần đầu render
-  useEffect(() => {
-    setCurrentDate();
-  }, []);
+  const renderCalendar = () => {
+    const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const prevMonthDays = new Date(currentYear, currentMonth, 0).getDate();
+    const calendarDays: JSX.Element[] = [];
 
-  // Xử lý sự kiện khi ngày được nhấp
-  const handleDateClick = (day: number, month: number, year: number) => {
-    setSelectedDate({ day, month, year });
+    for (let i = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1; i > 0; i--) {
+      const day = prevMonthDays - i + 1;
+      calendarDays.push(
+        <div key={`prev-${day}`} className="calendar-day calendar-day-prev">
+          {day}
+        </div>,
+      );
+    }
+
+    for (let i = 1; i <= daysInMonth; i++) {
+      const isSelected = false; // TODO: Check if the current date is selected
+      const day = i;
+      calendarDays.push(
+        <div
+          key={`current-${day}`}
+          className={`calendar-day ${isSelected ? 'calendar-day-selected' : ''}`}
+        >
+          {day}
+        </div>,
+      );
+    }
+
+    const totalDaysDisplayed = calendarDays.length;
+    const remainingCells = 42 - totalDaysDisplayed;
+    for (let i = 1; i <= remainingCells; i++) {
+      const day = i;
+      calendarDays.push(
+        <div key={`next-${day}`} className="calendar-day calendar-day-next">
+          {day}
+        </div>,
+      );
+    }
+
+    return calendarDays;
   };
 
-  // Đặt ngày hiện tại là ngày đã chọn ban đầu
-  const setCurrentDate = () => {
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth();
-    const currentDay = currentDate.getDate();
-
-    setSelectedDate({
-      day: currentDay,
-      month: currentMonth,
-      year: currentYear,
+  const handlePrevMonthClick = () => {
+    setCurrentMonth(prevMonth => {
+      const newMonth = prevMonth === 0 ? 11 : prevMonth - 1;
+      const newYear = prevMonth === 0 ? currentYear - 1 : currentYear;
+      setCurrentYear(newYear);
+      return newMonth;
     });
   };
 
-  // Render lịch
-  const renderCalendar = (): JSX.Element[] => {
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth();
-    const currentDay = currentDate.getDate();
-
-    // Xác định số ngày trong tháng hiện tại
-    const numDaysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-
-    // Xác định ngày đầu tiên của tháng hiện tại là ngày nào trong tuần (0: Chủ nhật, 1: Thứ 2, ..., 6: Thứ 7)
-    const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
-
-    // Xác định ngày bắt đầu hiển thị các ngày trống của tháng trước
-    const startingDay = firstDayOfMonth === 0 ? 7 : firstDayOfMonth;
-
-    // Xác định ngày cuối cùng của tháng hiện tại là ngày nào trong tuần (0: Chủ nhật, 1: Thứ 2, ..., 6: Thứ 7)
-    const lastDayOfMonth = new Date(currentYear, currentMonth, numDaysInMonth).getDay();
-
-    // Xác định ngày kết thúc hiển thị các ngày trống của tháng sau
-    const endingDay = lastDayOfMonth === 0 ? 7 : 7 - lastDayOfMonth;
-
-    const calendar: JSX.Element[] = [];
-
-    // Render các ngày trống của tháng trước
-    for (let i = startingDay - 1; i > 0; i--) {
-      const day = numDaysInMonth - i + 1;
-      const classNames = `calendar-day empty prev-month-day`;
-
-      calendar.push(
-        <div
-          key={`empty-prev-${i}`}
-          className={classNames}
-          onClick={() => handleDateClick(day, currentMonth - 1, currentYear)}
-        >
-          {day}
-        </div>,
-      );
-    }
-
-    // Render các ngày trong tháng hiện tại
-    for (let day = 1; day <= numDaysInMonth; day++) {
-      const isCurrentDay =
-        currentYear === currentYear && currentMonth === currentMonth && day === currentDay;
-
-      const isSelectedDay =
-        selectedDate &&
-        currentYear === selectedDate.year &&
-        currentMonth === selectedDate.month &&
-        day === selectedDate.day;
-
-      const classNames = `calendar-day ${isCurrentDay ? 'current-day' : ''} ${
-        isSelectedDay ? 'selected-day' : ''
-      }`;
-
-      calendar.push(
-        <div
-          key={`day-${day}`}
-          className={classNames}
-          onClick={() => handleDateClick(day, currentMonth, currentYear)}
-        >
-          {day}
-        </div>,
-      );
-    }
-
-    // Render các ngày trống của tháng sau
-    for (let i = 1; i <= endingDay; i++) {
-      const classNames = `calendar-day empty next-month-day`;
-      const day = i;
-
-      calendar.push(
-        <div
-          key={`empty-next-${i}`}
-          className={classNames}
-          onClick={() => handleDateClick(day, currentMonth + 1, currentYear)}
-        >
-          {day}
-        </div>,
-      );
-    }
-
-    return calendar;
+  const handleNextMonthClick = () => {
+    setCurrentMonth(prevMonth => {
+      const newMonth = prevMonth === 11 ? 0 : prevMonth + 1;
+      const newYear = prevMonth === 11 ? currentYear + 1 : currentYear;
+      setCurrentYear(newYear);
+      return newMonth;
+    });
   };
 
   return (
     <div className="calendar">
       <div className="calendar-space">
         <div className="calendar-header">
-          <FontAwesomeIcon className="icon-back-month" icon={faAngleLeft} />
-          <h2 className="calendar-day-header">
-            {selectedDate
-              ? `${selectedDate.day} ${monthNames[selectedDate.month]} ${selectedDate.year}`
-              : ''}
-          </h2>
-          <FontAwesomeIcon className="icon-next-month" icon={faAngleRight} />
+          <FontAwesomeIcon
+            className="icon-back-month"
+            icon={faAngleLeft}
+            onClick={handlePrevMonthClick}
+          />
+          <h2 className="calendar-day-header">{`${monthNames[currentMonth]} ${currentYear}`}</h2>
+          <FontAwesomeIcon
+            className="icon-next-month"
+            icon={faAngleRight}
+            onClick={handleNextMonthClick}
+          />
         </div>
         <div className="calendar-grid">
           <div className="calendar-day-label">Mon</div>

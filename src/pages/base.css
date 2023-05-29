@@ -225,10 +225,9 @@
 
 .date__from,
 .date__to {
-  width: 150px;
+  width: 130px;
   height: 44px;
   padding: 8px 16px;
-  margin-top: 4px;
   border: 1.5px solid var(--border-color);
   border-radius: 8px;
   font-size: 1.6rem;
@@ -256,16 +255,18 @@
   height: 94px;
   margin-left: 18px;
   font-size: 1.4rem;
+  line-height: 1.9rem;
   font-weight: 600;
   color: var(--primary);
   background-color: #fff2e7;
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  padding: 8px;
 }
 
 .add__table-icon {
   text-align: center;
   font-size: 2rem;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
