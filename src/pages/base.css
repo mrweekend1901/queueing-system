@@ -211,6 +211,11 @@
   border: 1.5px solid var(--border-color);
 }
 
+.search-input:focus {
+  outline: none;
+  border: 1.5px solid #ffac6a;
+}
+
 .input__container {
   position: relative;
 }

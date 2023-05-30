@@ -131,3 +131,29 @@
   height: 340px;
   margin: 0 24px;
 }
+
+.detail__page .content__btn {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail__page .btn-no-martop {
+  margin-top: 0;
+  border-top: 1.5px solid #ffe3cd;
+}
+
+.detail__page .radius-top {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.detail__page .radius-bot {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.detail__ex {
+  font-weight: 400;
+  font-size: 1.6rem;
+  color: #282739;
+}

@@ -11,6 +11,7 @@ import Table from '../../components/Table';
 import { useEffect, useState } from 'react';
 import { db } from '../../init/init-firebase';
 import { Timestamp, collection, getDocs } from 'firebase/firestore';
+import CalendarPicker from '../../components/CalendarPicker';
 
 interface Data {
   numberId: string;
@@ -83,9 +84,7 @@ function Report() {
               <label htmlFor="" className="feature__name">
                 Chọn thời gian
               </label>
-              <input type="date" className="date__from" />
-              <FontAwesomeIcon icon={faCaretRight} className="date__icon" />
-              <input type="date" className="date__to" />
+              <CalendarPicker />
             </div>
           </div>
         </div>

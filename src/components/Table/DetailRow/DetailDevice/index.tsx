@@ -73,18 +73,6 @@ function DetailDevice() {
         </span>
       </div>
     </div>
-
-    // <div>
-    //   <h2>Chi tiết</h2>
-    //   <p>Mã thiết bị: {row.deviceId}</p>
-    //   <p>Tên thiết bị: {row.deviceName}</p>
-    //   <p>Địa chỉ IP: {row.ipAddress}</p>
-    //   <p>Trạng thái hoạt động: {row.activeStatus}</p>
-    //   <p>Trạng thái kết nối: {row.conectStatus}</p>
-    //   <p>Dịch vụ sử dụng: {row.serviceUse}</p>
-    //   <p>Dịch vụ sử dụng: {row.userName}</p>
-    //   <p>Dịch vụ sử dụng: {row.passWord}</p>
-    // </div>
   );
 }
 

@@ -1,4 +1,10 @@
-import { faAngleRight, faCaretRight, faSearch } from '@fortawesome/free-solid-svg-icons';
+import {
+  faAngleRight,
+  faCaretRight,
+  faPen,
+  faRotateLeft,
+  faSearch,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import UserSide from '../../../UserSide';
 import '../../Addtable/addtable.css';
@@ -9,6 +15,8 @@ import { db } from '../../../../init/init-firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import CalendarPicker from '../../../CalendarPicker';
 import Table from '../..';
+import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 interface Data {
   numerical: string;
@@ -28,6 +36,9 @@ function DetailService() {
     status: 'Tất cả',
   });
   const [searchKeyword, setSearchKeyword] = useState('');
+
+  const location = useLocation();
+  const row = location.state;
 
   const handleDropdownSelect = (selectedOption: string, kind: string) => {
     setFilter({ ...filter, [kind]: selectedOption });
@@ -84,19 +95,19 @@ function DetailService() {
                 <label htmlFor="" className="detail__label">
                   Mã dịch vụ:
                 </label>
-                <div className="deltail__value">test</div>
+                <div className="deltail__value">{row.serviceId}</div>
               </div>
               <div className="detail__group">
                 <label htmlFor="" className="detail__label">
                   Tên dịch vụ:
                 </label>
-                <div className="deltail__value">test</div>
+                <div className="deltail__value">{row.serviceName}</div>
               </div>
               <div className="detail__group">
                 <label htmlFor="" className="detail__label">
                   Mô tả:
                 </label>
-                <div className="deltail__value">test</div>
+                <div className="deltail__value">{row.serviceDesc}</div>
               </div>
             </span>
             <span className="content__group">
@@ -108,17 +119,35 @@ function DetailService() {
                   <span className="detail__label no-marin-left">đến</span>
                   <input className="input__number" value="9999" type="text" disabled />
                 </div>
-                <div className="form__group">
-                  <span className="detail__label no-marin-left">Prefix:</span>
-                  <input className="input__number" value="0001" type="text" disabled />
-                </div>
-                <div className="form__group">
-                  <span className="detail__label no-marin-left">Surfix:</span>
-                  <input className="input__number" value="0001" type="text" disabled />
-                </div>
-                <div className="form__group">
-                  <span className="detail__label no-marin-left">Reset mỗi ngày</span>
-                </div>
+                {row.prefix && (
+                  <div className="form__group">
+                    <span className="detail__label no-marin-left">Prefix:</span>
+                    <input className="input__number" value={row.prefixValue} type="text" disabled />
+                  </div>
+                )}
+
+                {row.surfix && (
+                  <div className="form__group">
+                    <span className="detail__label no-marin-left">Surfix:</span>
+                    <input className="input__number" value={row.surfixValue} type="text" disabled />
+                  </div>
+                )}
+
+                {row.reset && (
+                  <div className="form__group">
+                    <span className="detail__label no-marin-left">Reset mỗi ngày</span>
+                  </div>
+                )}
+                {row.prefix && (
+                  <div className="form__group">
+                    <span className="detail__ex">{`Ví dụ: ${row.serviceId} - ${row.prefixValue}`}</span>
+                  </div>
+                )}
+                {row.surfix && (
+                  <div className="form__group">
+                    <span className="detail__ex">{`Ví dụ: ${row.surfixValue} - ${row.serviceId}`}</span>
+                  </div>
+                )}
               </span>
             </span>
           </div>
@@ -164,6 +193,18 @@ function DetailService() {
               <Table columns={columns} data={filteredData} />
             </span>
           </div>
+          <span className="content__btn">
+            <button className="btn__update radius-top">
+              <FontAwesomeIcon className="btn-update__icon" icon={faPen} />
+              Cập nhật danh sách
+            </button>
+            <Link className="btn__link" to="/service">
+              <button className="btn__back btn-no-martop radius-bot">
+                <FontAwesomeIcon className="btn-back__icon" icon={faRotateLeft} />
+                Quay lại
+              </button>
+            </Link>
+          </span>
         </span>
       </div>
     </div>
