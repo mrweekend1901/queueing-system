@@ -118,10 +118,16 @@
   margin: 16px 25px;
 }
 
-.detail__page .feature__group--calendar {
-  position: relative;
+.detail__page .feature__group:not(:last-child) {
+  margin-right: 12px;
 }
 
-.detail__page .calendar-picker {
-  position: absolute;
+.detail__page .search__group {
+  width: 200px;
+}
+
+.detail__page .table {
+  width: 670px;
+  height: 340px;
+  margin: 0 24px;
 }

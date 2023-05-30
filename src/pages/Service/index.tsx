@@ -15,6 +15,7 @@ import { db } from '../../init/init-firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 import DropDown from '../../components/Dropdown';
+import CalendarPicker from '../../components/CalendarPicker';
 
 interface Data {
   serviceId: string;
@@ -111,9 +112,7 @@ function Service() {
               <label htmlFor="" className="feature__name">
                 Chọn thời gian
               </label>
-              <input type="date" className="date__from" />
-              <FontAwesomeIcon icon={faCaretRight} className="date__icon" />
-              <input type="date" className="date__to" />
+              <CalendarPicker />
             </div>
           </div>
           <div className="feature__group">

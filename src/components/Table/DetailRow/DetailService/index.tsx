@@ -1,33 +1,66 @@
 import { faAngleRight, faCaretRight, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import UserSide from '../../../UserSide';
-
 import '../../Addtable/addtable.css';
 import '../DetailRow.css';
 import DropDown from '../../../Dropdown';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { db } from '../../../../init/init-firebase';
+import { collection, getDocs } from 'firebase/firestore';
 import CalendarPicker from '../../../CalendarPicker';
+import Table from '../..';
+
+interface Data {
+  numerical: string;
+  statusNum: string;
+}
+
+const columns = [
+  { Header: 'Số thứ tự', accessor: 'numerical' },
+  { Header: 'Trạng thái', accessor: 'statusNum' },
+];
 
 const dropdownAction = ['Tất cả', 'Đã hoàn thành', 'Đang thực hiện', 'Vắng'];
 
 function DetailService() {
+  const [data, setData] = useState<Data[]>([]);
   const [filter, setFilter] = useState({
-    activeStatus: 'Tất cả',
+    status: 'Tất cả',
   });
-
-  const [showCalendar, setShowCalendar] = useState(false); // State to control the visibility of the calendar
+  const [searchKeyword, setSearchKeyword] = useState('');
 
   const handleDropdownSelect = (selectedOption: string, kind: string) => {
     setFilter({ ...filter, [kind]: selectedOption });
   };
 
-  const handleDateFromClick = () => {
-    setShowCalendar(true); // Show the calendar when date__from input is clicked
+  const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchKeyword(event.target.value);
   };
 
-  const handleDateFromBlur = () => {
-    setShowCalendar(false); // Hide the calendar when date__from input loses focus
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      const collectionRef = collection(db, 'detailservice');
+      const querySnapshot = await getDocs(collectionRef);
+      const newData = querySnapshot.docs.map(doc => doc.data() as Data);
+      setData(newData);
+    };
+
+    fetchData();
+  }, []);
+
+  const filteredData = data.filter(row => {
+    if (searchKeyword.trim() !== '') {
+      const keyword = searchKeyword.toLowerCase();
+      const numerical = row.numerical.toLowerCase();
+      if (!numerical.includes(keyword)) {
+        return false;
+      }
+    }
+    if (filter.status !== 'Tất cả' && row.statusNum !== filter.status) {
+      return false;
+    }
+    return true;
+  });
 
   return (
     <div className="detail__page add__page">
@@ -101,7 +134,7 @@ function DetailService() {
                   dropdownWidth="160px"
                   dropdownHeight="44px"
                   options={dropdownAction}
-                  onSelect={selectedOption => handleDropdownSelect(selectedOption, 'activeStatus')}
+                  onSelect={selectedOption => handleDropdownSelect(selectedOption, 'status')}
                 />
               </div>
 
@@ -109,15 +142,7 @@ function DetailService() {
                 <label htmlFor="" className="feature__name">
                   Chọn thời gian
                 </label>
-                <input
-                  type="text"
-                  className="date__from"
-                  onFocus={handleDateFromClick}
-                  // onBlur={handleDateFromBlur}
-                />
-                <FontAwesomeIcon icon={faCaretRight} className="date__icon" />
-                <input type="text" className="date__to" disabled />
-                {showCalendar && <CalendarPicker />}
+                <CalendarPicker />
               </div>
 
               <div className="feature__group search__group">
@@ -129,12 +154,14 @@ function DetailService() {
                     type="text"
                     className="search-input"
                     placeholder="Nhập từ khóa..."
-                    //   value={searchKeyword}
-                    //   onChange={handleSearchInputChange}
+                    onChange={handleSearchInputChange}
                   />
                   <FontAwesomeIcon className="search-input-icon" icon={faSearch} />
                 </span>
               </div>
+            </span>
+            <span className="content__feature-table">
+              <Table columns={columns} data={filteredData} />
             </span>
           </div>
         </span>

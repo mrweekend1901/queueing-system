@@ -26,8 +26,12 @@ function Table({ columns, data }: any) {
     }
   };
 
-  const shouldShowUpdateColumn = location.pathname !== '/number' && location.pathname !== '/report'; // Kiểm tra path hiện tại
-  const shouldShowDetailColumn = location.pathname !== '/report'; // Kiểm tra path hiện tại
+  const shouldShowUpdateColumn =
+    location.pathname !== '/number' &&
+    location.pathname !== '/report' &&
+    location.pathname !== '/service/detailservice'; // Kiểm tra path hiện tại
+  const shouldShowDetailColumn =
+    location.pathname !== '/report' && location.pathname !== '/service/detailservice'; // Kiểm tra path hiện tại
 
   const tableInstance = useTable({
     columns: memoizedColumns,
@@ -100,6 +104,31 @@ function Table({ columns, data }: any) {
     }
   };
 
+  const renderStatusNum = (cellValue: any) => {
+    if (cellValue === 'Đã hoàn thành') {
+      return (
+        <div className="status__space">
+          <FontAwesomeIcon icon={faCircle} color="#34CD26" />
+          <span className="text__status">Đã hoàn thành</span>
+        </div>
+      );
+    } else if (cellValue === 'Đang thực hiện') {
+      return (
+        <div className="status__space">
+          <FontAwesomeIcon icon={faCircle} color="#5490EB" />
+          <span className="text__status">Đang thực hiện</span>
+        </div>
+      );
+    } else {
+      return (
+        <div className="status__space">
+          <FontAwesomeIcon icon={faCircle} color="#6C7585" />
+          <span className="text__status">Vắng</span>
+        </div>
+      );
+    }
+  };
+
   return (
     <table className="table" {...getTableProps()}>
       <thead>
@@ -125,6 +154,8 @@ function Table({ columns, data }: any) {
                   return <td {...cell.getCellProps()}>{renderConnectStatus(cell.value)}</td>;
                 } else if (cell.column.id === 'status') {
                   return <td {...cell.getCellProps()}>{renderStatus(cell.value)}</td>;
+                } else if (cell.column.id === 'statusNum') {
+                  return <td {...cell.getCellProps()}>{renderStatusNum(cell.value)}</td>;
                 } else {
                   return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
                 }

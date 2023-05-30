@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import '../CalendarPicker/CalendarPicker.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import {
+  faAngleLeft,
+  faAngleRight,
+  faCalendarDays,
+  faCaretRight,
+} from '@fortawesome/free-solid-svg-icons';
 
 // Định nghĩa kiểu dữ liệu cho ngày trong lịch
 type CalendarDate = {
@@ -31,6 +36,7 @@ const CalendarPicker: React.FC = () => {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear()); // Năm hiện tại
   const [selectedStartDate, setSelectedStartDate] = useState<CalendarDate | null>(null); // Ngày bắt đầu được chọn
   const [selectedEndDate, setSelectedEndDate] = useState<CalendarDate | null>(null); // Ngày kết thúc được chọn
+  const [isOpen, setIsOpen] = useState(false); // Trạng thái mở/đóng calendar-picker
 
   // Render lịch
   const renderCalendar = () => {
@@ -87,6 +93,11 @@ const CalendarPicker: React.FC = () => {
     return calendarDays;
   };
 
+  // Xử lý khi người dùng nhấp vào input để mở/đóng calendar-picker
+  const handleToggleCalendar = () => {
+    setIsOpen(!isOpen);
+  };
+
   // Kiểm tra xem ngày có được chọn hay không
   const isDateSelected = (year: number, month: number, day: number) => {
     if (!selectedStartDate || !selectedEndDate) return false;
@@ -129,6 +140,7 @@ const CalendarPicker: React.FC = () => {
         setSelectedStartDate(clickedDate);
       } else {
         setSelectedEndDate(clickedDate);
+        setIsOpen(false); // Ẩn calendar-picker sau khi endDay được chọn
       }
     } else {
       setSelectedStartDate(clickedDate);
@@ -167,44 +179,81 @@ const CalendarPicker: React.FC = () => {
   };
 
   return (
-    <div className="calendar-picker">
-      <div className="calendar-space">
-        <div className="calendar-header">
-          <FontAwesomeIcon
-            className="icon-back-month"
-            icon={faAngleLeft}
-            onClick={handlePrevMonthClick}
-          />
-          <h2 className="calendar-day-header">
-            {selectedStartDate && selectedEndDate
-              ? `${selectedStartDate.day} - ${selectedEndDate.day} ${
-                  monthNames[selectedEndDate.month]
-                } ${selectedEndDate.year}`
-              : selectedStartDate
-              ? `${selectedStartDate.day} ${monthNames[selectedStartDate.month]} ${
-                  selectedStartDate.year
-                }`
-              : ''}
-          </h2>
-          <FontAwesomeIcon
-            className="icon-next-month"
-            icon={faAngleRight}
-            onClick={handleNextMonthClick}
-          />
+    <div className="main">
+      <span className="calendar-input-group">
+        <FontAwesomeIcon className="calendar-icon" icon={faCalendarDays} />
+        <input
+          placeholder="dd/mm/yy"
+          type="text"
+          name="startDay"
+          className={`date__from ${isOpen ? 'calendar-input-active' : ''}`}
+          value={
+            selectedStartDate
+              ? `${selectedStartDate.day}/${selectedStartDate.month}/${selectedStartDate.year}`
+              : ''
+          }
+          onClick={handleToggleCalendar}
+          readOnly
+        />
+      </span>
+      <FontAwesomeIcon icon={faCaretRight} className="date__icon" />
+      <span className="calendar-input-group">
+        <FontAwesomeIcon className="calendar-icon" icon={faCalendarDays} />
+        <input
+          placeholder="dd/mm/yy"
+          type="text"
+          name="endDay"
+          className={`date__to ${isOpen ? 'calendar-input-active' : ''}`}
+          value={
+            selectedEndDate
+              ? `${selectedEndDate.day}/${selectedEndDate.month}/${selectedEndDate.year}`
+              : ''
+          }
+          onClick={handleToggleCalendar}
+          readOnly
+        />
+      </span>
+      {isOpen && (
+        <div className="calendar-picker">
+          <div className="calendar-space">
+            <div className="calendar-header">
+              <FontAwesomeIcon
+                className="icon-back-month"
+                icon={faAngleLeft}
+                onClick={handlePrevMonthClick}
+              />
+              <h2 className="calendar-day-header">
+                {selectedStartDate && selectedEndDate
+                  ? `${selectedStartDate.day} - ${selectedEndDate.day} ${
+                      monthNames[selectedEndDate.month]
+                    } ${selectedEndDate.year}`
+                  : selectedStartDate
+                  ? `${selectedStartDate.day} ${monthNames[selectedStartDate.month]} ${
+                      selectedStartDate.year
+                    }`
+                  : ''}
+              </h2>
+              <FontAwesomeIcon
+                className="icon-next-month"
+                icon={faAngleRight}
+                onClick={handleNextMonthClick}
+              />
+            </div>
+            <div className="calendar-grid">
+              <span className="calendar-grid-head">
+                <div className="calendar-day-label">Mon</div>
+                <div className="calendar-day-label">Tue</div>
+                <div className="calendar-day-label">Wed</div>
+                <div className="calendar-day-label">Thu</div>
+                <div className="calendar-day-label">Fri</div>
+                <div className="calendar-day-label">Sat</div>
+                <div className="calendar-day-label">Sun</div>
+              </span>
+              <span className="calendar-grid-body">{renderCalendar()}</span>
+            </div>
+          </div>
         </div>
-        <div className="calendar-grid">
-          <span className="calendar-grid-head">
-            <div className="calendar-day-label">Mon</div>
-            <div className="calendar-day-label">Tue</div>
-            <div className="calendar-day-label">Wed</div>
-            <div className="calendar-day-label">Thu</div>
-            <div className="calendar-day-label">Fri</div>
-            <div className="calendar-day-label">Sat</div>
-            <div className="calendar-day-label">Sun</div>
-          </span>
-          <span className="calendar-grid-body">{renderCalendar()}</span>
-        </div>
-      </div>
+      )}
     </div>
   );
 };

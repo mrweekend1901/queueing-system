@@ -15,6 +15,7 @@ import { db } from '../../init/init-firebase';
 import { Timestamp, collection, getDocs } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 import DropDown from '../../components/Dropdown';
+import CalendarPicker from '../../components/CalendarPicker';
 
 interface Data {
   numberId: string;
@@ -181,9 +182,7 @@ function NumberPage() {
             <label htmlFor="" className="feature__name">
               Chọn thời gian
             </label>
-            <input type="date" className="date__from" />
-            <FontAwesomeIcon icon={faCaretRight} className="date__icon" />
-            <input type="date" className="date__to" />
+            <CalendarPicker />
           </div>
           <div className="feature__group search__group">
             <label htmlFor="search-input" className="feature__name">

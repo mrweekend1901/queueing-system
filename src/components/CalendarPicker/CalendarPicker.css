@@ -1,8 +1,51 @@
+.date__from,
+.date__to {
+  width: 120px;
+  height: 44px;
+  padding: 8px 5px 8px 40px;
+  border: 1.5px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #a9a9b0;
+  cursor: pointer;
+}
+
+.date__from:focus,
+.date__to:focus {
+  outline: none;
+}
+
+.date__icon {
+  font-size: 1.2rem;
+  margin: 0 8px;
+}
+
+.main {
+  position: relative;
+}
+
+.calendar-input-group {
+  position: relative;
+}
+
+.calendar-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 15px;
+  color: #ff7506;
+}
+
 .calendar-picker {
+  position: absolute;
   width: 320px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  top: calc(100% + 5px);
+  left: 0;
+  z-index: 3;
 }
 
 .calendar-space {
@@ -85,4 +128,9 @@
   color: #fff;
   background: #ff7506;
   border-radius: 8px;
+}
+
+.date__from.calendar-input-active,
+.date__to.calendar-input-active {
+  border: 1.5px solid #ffac6a;
 }
