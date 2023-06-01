@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './dropdowntag.css';
 import TagItem from './Tagitem';
 
@@ -7,31 +7,44 @@ interface TagDropDownProps {
   placeholder: string;
   options: string[];
   onSelect: (selectedOptions: string[]) => void;
+  selectedTags?: string[];
 }
 
-const TagDropDown: React.FC<TagDropDownProps> = ({ placeholder, options, onSelect }) => {
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+const TagDropDown: React.FC<TagDropDownProps> = ({
+  placeholder,
+  options,
+  onSelect,
+  selectedTags,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<string>('');
+  const [selectedOption, setSelectedOption] = useState('');
+
+  useEffect(() => {
+    if (selectedTags && selectedTags.length > 0) {
+      setSelectedOption('');
+    }
+  }, [selectedTags]);
 
   const handleOptionSelect = (option: string) => {
     setSelectedOption(option);
-    if (!selectedTags.includes(option)) {
-      setSelectedTags([...selectedTags, option]);
+    const updatedTags = selectedTags ? [...selectedTags] : [];
+    if (!updatedTags.includes(option)) {
+      updatedTags.push(option);
     }
-    setIsOpen(false);
-    onSelect(selectedTags);
+    onSelect(updatedTags);
   };
 
   const handleTagRemove = (tag: string) => {
-    setSelectedTags(selectedTags.filter(item => item !== tag));
-    onSelect(selectedTags.filter(item => item !== tag));
+    if (selectedTags) {
+      const updatedTags = selectedTags.filter(item => item !== tag);
+      onSelect(updatedTags);
+    }
   };
 
   return (
     <div className={`tagDropDown ${isOpen ? 'open' : ''}`}>
       <div className="toggle" onClick={() => setIsOpen(!isOpen)}>
-        {selectedTags.length > 0 ? (
+        {selectedTags && selectedTags.length > 0 ? (
           <div className="tagContainer">
             {selectedTags.map(tag => (
               <TagItem key={tag} value={tag} onRemove={() => handleTagRemove(tag)} />

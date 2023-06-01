@@ -121,6 +121,7 @@ function Service() {
             </label>
             <span className="input__container">
               <input
+                style={{ width: '300px' }}
                 type="text"
                 className="search-input"
                 placeholder="Nhập từ khóa..."

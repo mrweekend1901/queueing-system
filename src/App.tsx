@@ -16,6 +16,8 @@ import Addnumber from './components/Table/Addtable/Addnumber';
 import DetailDevice from './components/Table/DetailRow/DetailDevice';
 import DetailNumber from './components/Table/DetailRow/DetailNumber';
 import DetailService from './components/Table/DetailRow/DetailService';
+import UpdateDevice from './components/Table/Updatetable/UpdateDevice';
+import UpdateService from './components/Table/Updatetable/UpdateService';
 
 function App() {
   return (
@@ -45,8 +47,10 @@ function MainContent() {
           <Route path="/report" element={<Report />} />
           <Route path="/setting" element={<Setting />} />
           <Route path="/device/adddevice" element={<Adddevice />} />
+          <Route path="/device/updatedevice" element={<UpdateDevice />} />
           <Route path="/service/addservice" element={<Addservice />} />
           <Route path="/service/detailservice" element={<DetailService />} />
+          <Route path="/service/updateservice" element={<UpdateService />} />
           <Route path="/number/addnumber" element={<Addnumber />} />
           <Route path="/number/detailnumber" element={<DetailNumber />} />
           <Route path="/device/detaildevice" element={<DetailDevice />} />

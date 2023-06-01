@@ -1,33 +1,40 @@
 import '../../../../pages/base.css';
-import '../addtable.css';
-import './addservice.css';
+import '../../Addtable/addtable.css';
+import '../../Addtable/Addservice/addservice.css';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import UserSide from '../../../UserSide';
 import { db } from '../../../../init/init-firebase';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, query, where, getDocs, doc, updateDoc } from 'firebase/firestore';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 interface FormValues {
   serviceId: string;
   serviceName: string;
-  serviceDetail: string;
+  serviceDesc: string;
   autoUpDown: boolean;
   prefix: boolean;
+  prefixValue: string;
   surfix: boolean;
+  surfixValue: string;
   resetDaily: boolean;
 }
 
-function Addservice() {
+function UpdateService() {
+  const location = useLocation();
+  const row = location.state;
+
   const [formValues, setFormValues] = useState<FormValues>({
-    serviceId: '',
-    serviceName: '',
-    serviceDetail: '',
-    autoUpDown: false,
-    prefix: false,
-    surfix: false,
-    resetDaily: false,
+    serviceId: row.serviceId,
+    serviceName: row.serviceName,
+    serviceDesc: row.serviceDesc,
+    autoUpDown: row.autoUpDown,
+    prefix: row.prefix,
+    prefixValue: row.prefixValue,
+    surfix: row.surfix,
+    surfixValue: row.surfixValue,
+    resetDaily: row.resetDaily,
   });
 
   // Lấy dữ liệu input
@@ -42,39 +49,39 @@ function Addservice() {
     }));
   };
 
-  const handleAddService = async (event: React.FormEvent) => {
-    event.preventDefault();
-
-    // Truy cập các giá trị bằng đối tượng formValues
-    const { serviceId, serviceName, serviceDetail, autoUpDown, prefix, surfix, resetDaily } =
-      formValues;
-
-    const serviceData = {
-      serviceId,
-      serviceName,
-      serviceDetail,
-      autoUpDown,
-      prefix,
-      surfix,
-      resetDaily,
-    };
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
     try {
-      const docRef = await addDoc(collection(db, 'service'), serviceData);
-      console.log('Document written with ID: ', docRef.id);
+      const { serviceId } = formValues;
 
-      // Reset form values
-      setFormValues({
-        serviceId: '',
-        serviceName: '',
-        serviceDetail: '',
-        autoUpDown: false,
-        prefix: false,
-        surfix: false,
-        resetDaily: false,
-      });
+      // Tạo truy vấn để tìm document theo deviceName
+      const q = query(collection(db, 'service'), where('serviceId', '==', serviceId));
+
+      // Thực hiện truy vấn
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        // Lấy document đầu tiên tìm thấy
+        const documentSnapshot = querySnapshot.docs[0];
+        const documentRef = doc(db, 'service', documentSnapshot.id);
+
+        // Cập nhật document
+        await updateDoc(documentRef, {
+          serviceName: formValues.serviceName,
+          serviceDesc: formValues.serviceDesc,
+          autoUpDown: formValues.autoUpDown,
+          prefix: formValues.prefix,
+          surfix: formValues.surfix,
+          resetDaily: formValues.resetDaily,
+        }); // Thay đổi thành giá trị mới cần cập nhật
+
+        alert(`Cập nhật thành công cho ID: ${formValues.serviceId}.`);
+      } else {
+        console.log('Không tìm thấy document với deviceId tương ứng.');
+      }
     } catch (error) {
-      console.error('Error adding document: ', error);
+      console.error('Lỗi khi cập nhật document:', error);
     }
   };
 
@@ -95,7 +102,7 @@ function Addservice() {
 
       <div className="content">
         <div className="content__heading">Quản lý dịch vụ</div>
-        <form className="form__add" onSubmit={handleAddService}>
+        <form className="form__add" onSubmit={handleSubmit}>
           <div className="content__body">
             <div className="content__label">Thông tin dịch vụ</div>
             <span className="content__group">
@@ -113,6 +120,7 @@ function Addservice() {
                     type="text"
                     placeholder="Nhập mã dịch vụ"
                     onChange={handleChange}
+                    disabled
                   />
                 </div>
                 <span className="error__massage"></span>
@@ -135,14 +143,14 @@ function Addservice() {
               </span>
               <span className="form__add--2-col">
                 <div className="form__group">
-                  <label htmlFor="serviceDetail" className="form__label">
+                  <label htmlFor="serviceDesc" className="form__label">
                     Mô tả:
                     <span className="form__label--icon">*</span>
                   </label>
                   <input
-                    value={formValues.serviceDetail}
-                    id="serviceDetail"
-                    name="serviceDetail"
+                    value={formValues.serviceDesc}
+                    id="serviceDesc"
+                    name="serviceDesc"
                     className="form__value form__value-service"
                     type="text"
                     placeholder="Nhập mô tả"
@@ -179,7 +187,12 @@ function Addservice() {
                     onChange={handleChange}
                   />
                   <span className="checkbox__text">Prefix</span>
-                  <input className="input__number" value="0001" type="text" disabled />
+                  <input
+                    className="input__number"
+                    value={formValues.prefixValue}
+                    type="text"
+                    disabled
+                  />
                 </div>
                 <div className="form__group">
                   <input
@@ -191,7 +204,12 @@ function Addservice() {
                     onChange={handleChange}
                   />
                   <span className="checkbox__text">Surfix</span>
-                  <input className="input__number" value="0001" type="text" disabled />
+                  <input
+                    className="input__number"
+                    value={formValues.surfixValue}
+                    type="text"
+                    disabled
+                  />
                 </div>
                 <div className="form__group">
                   <input
@@ -216,7 +234,7 @@ function Addservice() {
               <button className="btn form-cancel">Hủy bỏ</button>
             </Link>
             <button type="submit" className="btn form-submit">
-              Thêm thiết bị
+              Cập nhật
             </button>
           </div>
         </form>
@@ -225,4 +243,4 @@ function Addservice() {
   );
 }
 
-export default Addservice;
+export default UpdateService;

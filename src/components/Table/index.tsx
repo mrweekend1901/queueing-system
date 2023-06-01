@@ -26,6 +26,18 @@ function Table({ columns, data }: any) {
     }
   };
 
+  const handleRowUpdateClick = (row: any) => {
+    setSelectedRow(row);
+
+    if (location.pathname === '/device') {
+      navigate('/device/updatedevice', { state: row });
+    } else if (location.pathname === '/service') {
+      navigate('/service/updateservice', { state: row });
+    } else if (location.pathname === '/number') {
+      navigate('/number/detailnumber', { state: row });
+    }
+  };
+
   const shouldShowUpdateColumn =
     location.pathname !== '/number' &&
     location.pathname !== '/report' &&
@@ -165,7 +177,11 @@ function Table({ columns, data }: any) {
                   Chi tiết
                 </td>
               )}
-              {shouldShowUpdateColumn && <td className="td__click">Cập nhật</td>}
+              {shouldShowUpdateColumn && (
+                <td onClick={() => handleRowUpdateClick(row.original)} className="td__click">
+                  Cập nhật
+                </td>
+              )}
               {/* <td className="td__click">Cập nhật</td> */}
             </tr>
           );

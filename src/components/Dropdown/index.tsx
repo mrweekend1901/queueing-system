@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './dropdown.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
@@ -8,6 +8,7 @@ interface DropDownProps {
   placeholder: string;
   dropdownWidth: string;
   dropdownHeight: string;
+  initialDeviceType?: string; // Thay đổi kiểu dữ liệu thành string | undefined
   options: string[];
   onSelect: (selectedOption: string) => void;
 }
@@ -17,15 +18,22 @@ const DropDown: React.FC<DropDownProps> = ({
   dropdownWidth,
   dropdownHeight,
   options,
+  initialDeviceType, // Thêm dấu ? để đánh dấu là có thể truyền hoặc không truyền
   onSelect,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(placeholder);
-  const [isIconRotated, setIsIconRotated] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<string | undefined>(undefined); // Thay đổi kiểu dữ liệu của selectedOption
+
+  useEffect(() => {
+    if (initialDeviceType) {
+      setSelectedOption(initialDeviceType);
+    } else {
+      setSelectedOption(placeholder);
+    }
+  }, [initialDeviceType, placeholder]);
 
   const handleDropdownToggle = () => {
     setIsOpen(!isOpen);
-    setIsIconRotated(!isIconRotated);
   };
 
   const handleOptionSelect = (option: string) => {
@@ -41,8 +49,8 @@ const DropDown: React.FC<DropDownProps> = ({
         onClick={handleDropdownToggle}
         style={{ width: dropdownWidth, height: dropdownHeight }}
       >
-        {selectedOption}
-        <FontAwesomeIcon className="dropdown-icon" icon={isIconRotated ? faCaretUp : faCaretDown} />
+        {selectedOption || placeholder} {/* Sử dụng selectedOption hoặc placeholder */}
+        <FontAwesomeIcon className="dropdown-icon" icon={isOpen ? faCaretUp : faCaretDown} />
       </div>
       {isOpen && (
         <div className="dropdown-options">
@@ -51,10 +59,7 @@ const DropDown: React.FC<DropDownProps> = ({
               key={index}
               className="dropdown-option"
               style={{ width: dropdownWidth }}
-              onClick={() => {
-                setIsIconRotated(false);
-                handleOptionSelect(option);
-              }}
+              onClick={() => handleOptionSelect(option)}
             >
               {option}
             </div>
