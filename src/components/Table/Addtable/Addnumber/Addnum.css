@@ -1,0 +1,30 @@
+.num__page .content__body--center {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.num__page .content__label {
+  padding: 24px 0;
+  font-weight: 700;
+  font-size: 3.2rem;
+}
+
+.num__page .form__label {
+  text-align: center;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.num__page .btn__group {
+  margin-top: 80px;
+}
+
+.num__page .form-cancel {
+  background-color: #fff2e7;
+}
+
+.num__page .btn {
+  width: 115px;
+}

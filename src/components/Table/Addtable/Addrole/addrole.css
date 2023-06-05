@@ -1,0 +1,59 @@
+.addrole__page .content__value {
+  display: flex;
+}
+
+.addrole__page .content__value--50 {
+  width: 50%;
+  margin-left: 24px;
+}
+
+.addrole__page .content__message {
+  margin-left: 0;
+}
+
+.addrole__page .form__value {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.addrole__page .form__value:focus {
+  outline: none;
+  border: 1.5px solid #ffac6a;
+}
+
+.addrole__page .form__checkbox {
+  height: 420px;
+  background-color: #fff2e7;
+  border-radius: 8px;
+  margin-right: 24px;
+  padding: 16px 0 0 24px;
+}
+
+.addrole__page .checkbox__list {
+  margin-bottom: 26px;
+}
+
+.addrole__page .checkbox__label {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 30px;
+  color: #ff7506;
+}
+
+.addrole__page .checkbox__item {
+  display: flex;
+  align-items: center;
+  margin: 12px 0;
+}
+
+.addrole__page .checkbox__item input {
+  width: 18px;
+  height: 18px;
+}
+
+.addrole__page .checkbox__text {
+  font-weight: 600;
+  font-size: 16px;
+  color: #535261;
+  margin-left: 8px;
+}

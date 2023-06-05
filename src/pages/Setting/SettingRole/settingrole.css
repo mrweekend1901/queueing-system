@@ -1,0 +1,4 @@
+.settingrole__page .content__feature {
+  display: flex;
+  justify-content: flex-end;
+}

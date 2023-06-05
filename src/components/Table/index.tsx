@@ -43,7 +43,10 @@ function Table({ columns, data }: any) {
     location.pathname !== '/report' &&
     location.pathname !== '/service/detailservice'; // Kiểm tra path hiện tại
   const shouldShowDetailColumn =
-    location.pathname !== '/report' && location.pathname !== '/service/detailservice'; // Kiểm tra path hiện tại
+    location.pathname !== '/report' &&
+    location.pathname !== '/service/detailservice' &&
+    location.pathname !== '/setting/settingrole' &&
+    location.pathname !== '/setting/settinguser'; // Kiểm tra path hiện tại
 
   const tableInstance = useTable({
     columns: memoizedColumns,

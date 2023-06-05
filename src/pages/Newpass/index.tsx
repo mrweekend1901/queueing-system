@@ -87,7 +87,7 @@ function Newpass() {
               />
               <FontAwesomeIcon
                 className="eyes-icon"
-                icon={showPass ? faEyeSlash : faEye}
+                icon={showPass ? faEye : faEyeSlash}
                 onClick={toggleShowPass}
               />
             </div>
@@ -110,7 +110,7 @@ function Newpass() {
               />
               <FontAwesomeIcon
                 className="eyes-icon"
-                icon={showPass ? faEyeSlash : faEye}
+                icon={showPass ? faEye : faEyeSlash}
                 onClick={toggleShowPass}
               />
             </div>

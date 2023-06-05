@@ -18,6 +18,10 @@ import DetailNumber from './components/Table/DetailRow/DetailNumber';
 import DetailService from './components/Table/DetailRow/DetailService';
 import UpdateDevice from './components/Table/Updatetable/UpdateDevice';
 import UpdateService from './components/Table/Updatetable/UpdateService';
+import SettingRole from './pages/Setting/SettingRole';
+import Addrole from './components/Table/Addtable/Addrole';
+import AddUser from './components/Table/Addtable/Adduser';
+import SettingUser from './pages/Setting/SettingUser';
 
 function App() {
   return (
@@ -45,7 +49,11 @@ function MainContent() {
           <Route path="/service" element={<Service />} />
           <Route path="/number" element={<NumberPage />} />
           <Route path="/report" element={<Report />} />
-          <Route path="/setting" element={<Setting />} />
+          {/* <Route path="/setting" element={<Setting />} /> */}
+          <Route path="/setting/settingrole" element={<SettingRole />} />
+          <Route path="/setting/settinguser" element={<SettingUser />} />
+          <Route path="/setting/settingrole/addrole" element={<Addrole />} />
+          <Route path="/setting/settinguser/adduser" element={<AddUser />} />
           <Route path="/device/adddevice" element={<Adddevice />} />
           <Route path="/device/updatedevice" element={<UpdateDevice />} />
           <Route path="/service/addservice" element={<Addservice />} />

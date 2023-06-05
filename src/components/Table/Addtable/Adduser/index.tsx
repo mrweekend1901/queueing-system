@@ -1,27 +1,17 @@
 import React, { useState } from 'react';
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import UserSide from '../../../UserSide';
 import DropDown from '../../../Dropdown';
-import TagDropDown from '../../../Dropdowntag';
 import { db } from '../../../../init/init-firebase';
 import { collection, addDoc } from 'firebase/firestore';
 
 import '../../../../pages/base.css';
 import '../addtable.css';
-import './adddevice.css';
+import './adduser.css';
 import { Link } from 'react-router-dom';
 
 const dropdownList = ['Kiosk', 'Display counter'];
-
-const tagOptions = [
-  'Khám tim mạch',
-  'Khám sản phụ khoa',
-  'Khám răng hàm mặt',
-  'Khám tai mũi họng',
-  'Khám hô hấp',
-  'Khám tổng quát',
-];
 
 interface FormData {
   deviceID: string;
@@ -35,9 +25,9 @@ interface FormData {
   activeStatus: boolean;
 }
 
-function Adddevice() {
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-
+function AddUser() {
+  const [showPass, setShowPass] = useState(false);
+  const inputType = showPass ? 'text' : 'password';
   const [formData, setFormData] = useState<FormData>({
     deviceID: '',
     deviceType: '',
@@ -49,6 +39,10 @@ function Adddevice() {
     connectStatus: true,
     activeStatus: true,
   });
+
+  const toggleShowPass = () => {
+    setShowPass(!showPass);
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -62,14 +56,6 @@ function Adddevice() {
     setFormData(prevFormData => ({
       ...prevFormData,
       deviceType: selectedOption,
-    }));
-  };
-
-  const handleTagSelect = (selectedOptions: string[]) => {
-    setSelectedTags(selectedOptions);
-    setFormData(prevFormData => ({
-      ...prevFormData,
-      serviceUse: selectedOptions.join(', '),
     }));
   };
 
@@ -96,35 +82,35 @@ function Adddevice() {
   };
 
   return (
-    <div className="adddevice__page add__page">
+    <div className="adduser__page add__page">
       <div className="header">
         <div className="page__rank">
-          <div className="header__fa">Thiết bị</div>
+          <div className="header__fa">Cài đặt hệ thống</div>
           <FontAwesomeIcon className="page__rank-icon" icon={faAngleRight} />
-          <div className="header__fa">Danh sách thiết bị</div>
+          <div className="header__fa">Quản lý tài khoản</div>
           <FontAwesomeIcon className="page__rank-icon" icon={faAngleRight} />
-          <div className="header__title">Thêm thiết bị</div>
+          <div className="header__title">Thêm tài khoản</div>
         </div>
         <UserSide />
       </div>
 
       <div className="content">
-        <div className="content__heading">Quản lý thiết bị</div>
+        <div className="content__heading">Quản lý tài khoản</div>
         <form className="form__add" onSubmit={handleSubmit}>
           <div className="content__body">
-            <div className="content__label">Thông tin thiết bị</div>
+            <div className="content__label">Thông tài khoản</div>
             <span className="form__add--2-col">
               <div className="form__group">
                 <label htmlFor="deviceID" className="form__label">
-                  Mã thiết bị:
+                  Họ tên:
                   <span className="form__label--icon">*</span>
                 </label>
                 <input
                   className="form__value"
                   type="text"
-                  name="deviceID"
-                  value={formData.deviceID}
-                  placeholder="Nhập mã thiết bị"
+                  name="passWord"
+                  value={formData.passWord}
+                  placeholder="Nhập họ tên"
                   onChange={handleInputChange}
                 />
               </div>
@@ -132,23 +118,23 @@ function Adddevice() {
 
               <div className="form__group">
                 <label htmlFor="" className="form__label">
-                  Loại thiết bị:
+                  Tên đăng nhập:
                   <span className="form__label--icon">*</span>
                 </label>
-                <DropDown
-                  id=""
-                  placeholder="Chọn loại thiết bị"
-                  dropdownWidth="540px"
-                  dropdownHeight="44px"
-                  options={dropdownList}
-                  onSelect={handleDropdownSelect}
+                <input
+                  className="form__value"
+                  type="text"
+                  name="passWord"
+                  value={formData.passWord}
+                  placeholder="Nhập tên đăng nhập"
+                  onChange={handleInputChange}
                 />
               </div>
               <span className="error__massage"></span>
 
               <div className="form__group">
                 <label htmlFor="deviceName" className="form__label">
-                  Tên thiết bị:
+                  Số điện thoại:
                   <span className="form__label--icon">*</span>
                 </label>
                 <input
@@ -164,23 +150,29 @@ function Adddevice() {
 
               <div className="form__group">
                 <label htmlFor="userName" className="form__label">
-                  Tên đăng nhập:
+                  Mật khẩu:
                   <span className="form__label--icon">*</span>
                 </label>
-                <input
-                  className="form__value"
-                  type="text"
-                  name="userName"
-                  value={formData.userName}
-                  placeholder="Nhập tên đăng nhập"
-                  onChange={handleInputChange}
-                />
+                <div className="password-container">
+                  <input
+                    className="form__value form__value--pass"
+                    id="password"
+                    name="password"
+                    type={inputType}
+                    placeholder="Nhập mật khẩu..."
+                  />
+                  <FontAwesomeIcon
+                    className="eyes-icon"
+                    icon={showPass ? faEye : faEyeSlash}
+                    onClick={toggleShowPass}
+                  />
+                </div>
               </div>
               <span className="error__massage"></span>
 
               <div className="form__group">
                 <label htmlFor="addressIP" className="form__label">
-                  Địa chỉ IP:
+                  Email:
                   <span className="form__label--icon">*</span>
                 </label>
                 <input
@@ -188,7 +180,7 @@ function Adddevice() {
                   type="text"
                   name="addressIP"
                   value={formData.addressIP}
-                  placeholder="Nhập địa chỉ IP"
+                  placeholder="Nhập Email"
                   onChange={handleInputChange}
                 />
               </div>
@@ -196,32 +188,50 @@ function Adddevice() {
 
               <div className="form__group">
                 <label htmlFor="passWord" className="form__label">
-                  Mật khẩu:
+                  Nhập lại mật khẩu:
                   <span className="form__label--icon">*</span>
                 </label>
-                <input
-                  className="form__value"
-                  type="text"
-                  name="passWord"
-                  value={formData.passWord}
-                  placeholder="Nhập mật khẩu"
-                  onChange={handleInputChange}
+                <div className="password-container">
+                  <input
+                    className="form__value form__value--pass"
+                    id="password"
+                    name="password"
+                    type={inputType}
+                    placeholder="Nhập mật khẩu..."
+                  />
+                  <FontAwesomeIcon
+                    className="eyes-icon"
+                    icon={showPass ? faEye : faEyeSlash}
+                    onClick={toggleShowPass}
+                  />
+                </div>
+              </div>
+              <div className="form__group">
+                <label htmlFor="passWord" className="form__label">
+                  Vai trò:
+                  <span className="form__label--icon">*</span>
+                </label>
+                <DropDown
+                  id=""
+                  placeholder="Chọn vai trò"
+                  dropdownWidth="540px"
+                  dropdownHeight="44px"
+                  options={dropdownList}
+                  onSelect={handleDropdownSelect}
                 />
               </div>
-              <span className="error__massage"></span>
-            </span>
-            <span className="form__add--1-col">
               <div className="form__group">
-                <label htmlFor="" className="form__label">
-                  Dịch vụ sử dụng:
+                <label htmlFor="passWord" className="form__label">
+                  Tình trạng:
                   <span className="form__label--icon">*</span>
                 </label>
-                <TagDropDown
+                <DropDown
                   id=""
-                  placeholder="Nhập dịch vụ sử dụng"
-                  options={tagOptions}
-                  onSelect={handleTagSelect}
-                  selectedTags={selectedTags}
+                  placeholder="Chọn tình trạng"
+                  dropdownWidth="540px"
+                  dropdownHeight="44px"
+                  options={dropdownList}
+                  onSelect={handleDropdownSelect}
                 />
               </div>
               <span className="error__massage"></span>
@@ -233,10 +243,12 @@ function Adddevice() {
           </div>
           <div className="btn__group">
             <Link to="/device">
-              <button className="btn form-cancel">Hủy bỏ</button>
+              <button className="btn form-cancel" style={{ background: '#FFF2E7' }}>
+                Hủy bỏ
+              </button>
             </Link>
             <button type="submit" className="btn form-submit">
-              Thêm thiết bị
+              Thêm
             </button>
           </div>
         </form>
@@ -245,4 +257,4 @@ function Adddevice() {
   );
 }
 
-export default Adddevice;
+export default AddUser;

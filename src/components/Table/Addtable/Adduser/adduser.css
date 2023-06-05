@@ -1,0 +1,18 @@
+.adduser__page .eyes-icon {
+  right: 35px;
+}
+
+.adduser__page .form__add--2-col {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 4px 24px;
+}
+
+.adduser__page .form__add--2-col .form__group {
+  width: 50%;
+  margin-bottom: 16px;
+}
+
+.adduser__page .form__value--pass {
+  padding-right: 50px;
+}
