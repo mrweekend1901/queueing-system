@@ -49,11 +49,11 @@ function MainContent() {
           <Route path="/service" element={<Service />} />
           <Route path="/number" element={<NumberPage />} />
           <Route path="/report" element={<Report />} />
-          {/* <Route path="/setting" element={<Setting />} /> */}
           <Route path="/setting/settingrole" element={<SettingRole />} />
           <Route path="/setting/settinguser" element={<SettingUser />} />
           <Route path="/setting/settingrole/addrole" element={<Addrole />} />
           <Route path="/setting/settinguser/adduser" element={<AddUser />} />
+          <Route path="/setting" element={<Setting />} />
           <Route path="/device/adddevice" element={<Adddevice />} />
           <Route path="/device/updatedevice" element={<UpdateDevice />} />
           <Route path="/service/addservice" element={<Addservice />} />

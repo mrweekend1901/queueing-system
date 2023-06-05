@@ -1,7 +1,6 @@
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-
 import './sidebar.css';
 import images from '../../../assets/images';
 
@@ -13,6 +12,8 @@ interface MenuItem {
 }
 
 const Sidebar = ({ children }: any) => {
+  const navigate = useNavigate();
+
   const menuItem: MenuItem[] = [
     {
       path: '/dashboard',
@@ -56,7 +57,7 @@ const Sidebar = ({ children }: any) => {
           <div className="icon icon-drop">{menuItem.drop}</div>
           {menuItem.drop && (
             <ul className="setting-list">
-              {/* <Link className="link_tag" to="/setting/settingrole">
+              <Link className="link_tag" to="/setting/settingrole">
                 <li className="setting-item">Quản lý vai trò</li>
               </Link>
               <Link className="link_tag" to="/setting/settinguser">
@@ -64,7 +65,7 @@ const Sidebar = ({ children }: any) => {
               </Link>
               <Link className="link_tag" to="/setting/history">
                 <li className="setting-item">Nhật ký người dùng</li>
-              </Link> */}
+              </Link>
             </ul>
           )}
         </NavLink>
@@ -72,7 +73,6 @@ const Sidebar = ({ children }: any) => {
     );
   };
 
-  const navigate = useNavigate();
   // Xử lý logic đăng xuất
   const handleLogout = () => {
     // Xóa loginData từ localStorage
