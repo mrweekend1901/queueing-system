@@ -22,6 +22,9 @@ import SettingRole from './pages/Setting/SettingRole';
 import Addrole from './components/Table/Addtable/Addrole';
 import AddUser from './components/Table/Addtable/Adduser';
 import SettingUser from './pages/Setting/SettingUser';
+import UpdateRole from './components/Table/Updatetable/UpdateRole';
+import UpdateUser from './components/Table/Updatetable/UpdateUser';
+import HistoryPage from './pages/Setting/History';
 
 function App() {
   return (
@@ -51,8 +54,11 @@ function MainContent() {
           <Route path="/report" element={<Report />} />
           <Route path="/setting/settingrole" element={<SettingRole />} />
           <Route path="/setting/settinguser" element={<SettingUser />} />
+          <Route path="/setting/history" element={<HistoryPage />} />
           <Route path="/setting/settingrole/addrole" element={<Addrole />} />
           <Route path="/setting/settinguser/adduser" element={<AddUser />} />
+          <Route path="/setting/settingrole/updaterole" element={<UpdateRole />} />
+          <Route path="/setting/settinguser/updateuser" element={<UpdateUser />} />
           <Route path="/setting" element={<Setting />} />
           <Route path="/device/adddevice" element={<Adddevice />} />
           <Route path="/device/updatedevice" element={<UpdateDevice />} />

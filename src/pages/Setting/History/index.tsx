@@ -1,42 +1,33 @@
 import '../../base.css';
-import './settinguser.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faAngleRight,
   faCaretLeft,
   faCaretRight,
   faSearch,
-  faSquarePlus,
 } from '@fortawesome/free-solid-svg-icons';
 import UserSide from '../../../components/UserSide';
 import Table from '../../../components/Table';
 import { useEffect, useState } from 'react';
 import { db } from '../../../init/init-firebase';
-import { collection, getDocs } from 'firebase/firestore';
-import { Link } from 'react-router-dom';
-import DropDown from '../../../components/Dropdown';
+import { Timestamp, collection, getDocs } from 'firebase/firestore';
+import { formatTimestamp } from '../../Number';
+import CalendarPicker from '../../../components/CalendarPicker';
 
 interface Data {
-  fullName: string;
-  username: string;
-  phoneNumber: string;
-  email: string;
-  role: string;
-  activeStatus: boolean;
+  userName: string;
+  nameChange: number;
+  addressIP: string;
+  timeChange: Timestamp;
 }
 
-const dropdownList = ['Tất cả', 'Kế toán', 'Bác sĩ', 'Lễ tân'];
-
-function SettingUser() {
+function HistoryPage() {
   const [data, setData] = useState<Data[]>([]);
-  const [filter, setFilter] = useState({
-    role: 'Tất cả',
-  });
   const [searchKeyword, setSearchKeyword] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
-      const collectionRef = collection(db, 'users');
+      const collectionRef = collection(db, 'history');
       const querySnapshot = await getDocs(collectionRef);
       const newData = querySnapshot.docs.map(doc => doc.data() as Data);
       setData(newData);
@@ -48,14 +39,11 @@ function SettingUser() {
   const filteredData = data.filter(row => {
     if (searchKeyword.trim() !== '') {
       const keyword = searchKeyword.toLowerCase();
-      const username = row.username.toLowerCase();
-      const fullName = row.fullName.toLowerCase();
-      if (!username.includes(keyword) && !fullName.includes(keyword)) {
+      const userName = row.userName.toLowerCase();
+      const addressIP = row.addressIP.toLowerCase();
+      if (!userName.includes(keyword) && !addressIP.includes(keyword)) {
         return false;
       }
-    }
-    if (filter.role !== 'Tất cả' && row.role !== filter.role) {
-      return false;
     }
     return true;
   });
@@ -64,18 +52,18 @@ function SettingUser() {
     setSearchKeyword(event.target.value);
   };
 
-  const handleDropdownSelect = (selectedOption: string, kind: string) => {
-    setFilter({ ...filter, [kind]: selectedOption });
-  };
-
   // Table value
   const columns = [
-    { Header: 'Tên đăng nhập', accessor: 'username' },
-    { Header: 'Họ tên', accessor: 'fullName' },
-    { Header: 'Số điện thoại', accessor: 'phoneNumber' },
-    { Header: 'Email', accessor: 'email' },
-    { Header: 'Vai trò', accessor: 'role' },
-    { Header: 'Trạng thái hoạt động', accessor: 'activeStatus' },
+    { Header: 'Tên đăng nhập', accessor: 'userName' },
+    {
+      Header: 'Thời gian tác động',
+      accessor: 'timeChange',
+      Cell: ({ value }: any) => (
+        <span>{value instanceof Timestamp ? formatTimestamp(value) : ''}</span>
+      ),
+    },
+    { Header: 'IP thực hiện', accessor: 'addressIP' },
+    { Header: 'Thao tác thực hiện', accessor: 'nameChange' },
   ];
 
   return (
@@ -84,26 +72,18 @@ function SettingUser() {
         <div className="page__rank">
           <div className="header__fa">Cài đặt hệ thống</div>
           <FontAwesomeIcon className="page__rank-icon" icon={faAngleRight} />
-          <div className="header__title">Quản lý tài khoản</div>
+          <div className="header__title">Nhật ký hoạt động</div>
         </div>
         <UserSide />
       </div>
 
       <div className="content">
-        <div className="content__heading">Danh sách tài khoản</div>
         <div className="content__feature">
           <div className="feature__group">
             <label htmlFor="search-input" className="feature__name">
-              Tên vai trò
+              Chọn thời gian
             </label>
-            <DropDown
-              id="dropdownFilterrole"
-              placeholder="Tất cả"
-              dropdownWidth="300px"
-              dropdownHeight="44px"
-              options={dropdownList}
-              onSelect={selectedOption => handleDropdownSelect(selectedOption, 'role')}
-            />
+            <CalendarPicker />
           </div>
           <div className="feature__group search__group">
             <label htmlFor="search-input" className="feature__name">
@@ -125,12 +105,6 @@ function SettingUser() {
 
         <div className="content__board">
           <Table columns={columns} data={filteredData} />
-          <Link to="/setting/settinguser/adduser" className="addtable__link">
-            <button className="add__table">
-              <FontAwesomeIcon icon={faSquarePlus} className="add__table-icon" />
-              Thêm tài khoản
-            </button>
-          </Link>
         </div>
       </div>
 
@@ -151,4 +125,4 @@ function SettingUser() {
   );
 }
 
-export default SettingUser;
+export default HistoryPage;

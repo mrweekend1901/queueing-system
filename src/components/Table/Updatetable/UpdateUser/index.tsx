@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { faAngleRight, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import UserSide from '../../../UserSide';
 import DropDown from '../../../Dropdown';
 import { db } from '../../../../init/init-firebase';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, query, where, getDocs, doc, updateDoc } from 'firebase/firestore';
 
-import '../../../../pages/base.css';
-import '../addtable.css';
-import './adduser.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const dropdownList = ['Hoạt động', 'Ngưng hoạt động'];
 const dropdownList2 = ['Admin', 'Kế toán', 'Lễ tân', 'Bác sĩ'];
@@ -25,21 +22,39 @@ interface FormData {
   activeStatus: boolean;
 }
 
-function AddUser() {
+function UpdateUser() {
+  const location = useLocation();
+  const row = location.state;
+
   const [showPass, setShowPass] = useState(false);
   const [rePasswordError, setRePasswordError] = useState(false);
 
+  const [initialRole, setInitialRole] = useState('');
+  const [initialAction, setInitialAction] = useState('');
+
   const inputType = showPass ? 'text' : 'password';
   const [formData, setFormData] = useState<FormData>({
-    email: '',
-    fullName: '',
-    username: '',
-    phoneNumber: '',
-    passWord: '',
-    rePassWord: '',
-    role: '',
-    activeStatus: false,
+    email: row.email,
+    fullName: row.fullName,
+    username: row.username,
+    phoneNumber: row.phoneNumber,
+    passWord: row.passWord,
+    rePassWord: row.passWord,
+    role: row.role,
+    activeStatus: row.activeStatus,
   });
+
+  useEffect(() => {
+    setInitialRole(row.role);
+  }, [row.role]);
+
+  useEffect(() => {
+    if (row.activeStatus === true) {
+      setInitialAction('Hoạt động');
+    } else {
+      setInitialAction('Ngưng hoạt động');
+    }
+  }, [row.activeStatus]);
 
   const toggleShowPass = () => {
     setShowPass(!showPass);
@@ -92,29 +107,35 @@ function AddUser() {
       return;
     }
     try {
-      const docRef = await addDoc(collection(db, 'users'), {
-        email: formData.email,
-        fullName: formData.fullName,
-        username: formData.username,
-        phoneNumber: formData.phoneNumber,
-        passWord: formData.passWord,
-        role: formData.role,
-        activeStatus: formData.activeStatus,
-      });
-      console.log('User added with ID: ', docRef.id);
-      // Reset form data
-      setFormData({
-        email: '',
-        fullName: '',
-        username: '',
-        phoneNumber: '',
-        passWord: '',
-        rePassWord: '',
-        role: '',
-        activeStatus: false,
-      });
+      const { username } = formData;
+
+      // Tạo truy vấn để tìm document theo deviceName
+      const q = query(collection(db, 'users'), where('username', '==', username));
+
+      // Thực hiện truy vấn
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        // Lấy document đầu tiên tìm thấy
+        const documentSnapshot = querySnapshot.docs[0];
+        const documentRef = doc(db, 'users', documentSnapshot.id);
+
+        // Cập nhật document
+        await updateDoc(documentRef, {
+          email: formData.email,
+          passWord: formData.passWord,
+          fullName: formData.fullName,
+          phoneNumber: formData.phoneNumber,
+          role: formData.role,
+          activeStatus: formData.activeStatus,
+        }); // Thay đổi thành giá trị mới cần cập nhật
+
+        alert(`Cập nhật thành công cho ID: ${formData.username}.`);
+      } else {
+        console.log('Không tìm thấy document với RoleID tương ứng.');
+      }
     } catch (error) {
-      console.error('Error adding device: ', error);
+      console.error('Lỗi khi cập nhật document:', error);
     }
   };
 
@@ -166,6 +187,7 @@ function AddUser() {
                   value={formData.username}
                   placeholder="Nhập tên đăng nhập"
                   onChange={handleInputChange}
+                  disabled
                 />
               </div>
 
@@ -255,6 +277,7 @@ function AddUser() {
                   dropdownHeight="44px"
                   options={dropdownList2}
                   onSelect={handleDropdownSelectRole}
+                  initialDeviceType={initialRole}
                 />
               </div>
               <div className="form__group">
@@ -269,6 +292,7 @@ function AddUser() {
                   dropdownHeight="44px"
                   options={dropdownList}
                   onSelect={handleDropdownSelectAction}
+                  initialDeviceType={initialAction}
                 />
               </div>
               <span className="error__massage"></span>
@@ -285,7 +309,7 @@ function AddUser() {
               </button>
             </Link>
             <button type="submit" className="btn form-submit">
-              Thêm
+              Cập nhật
             </button>
           </div>
         </form>
@@ -294,4 +318,4 @@ function AddUser() {
   );
 }
 
-export default AddUser;
+export default UpdateUser;

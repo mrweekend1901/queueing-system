@@ -1,13 +1,28 @@
 .table {
   width: 1112px;
   height: 490px;
-  border-radius: 12px;
   filter: drop-shadow(2px 2px 8px rgba(232, 239, 244, 0.8));
-  overflow: hidden;
 }
 
 thead {
+  overflow: hidden;
   height: 49px;
+}
+
+tr th:first-child {
+  border-top-left-radius: 12px;
+}
+
+tr th:last-child {
+  border-top-right-radius: 12px;
+}
+
+tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 12px;
+}
+
+tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 12px;
 }
 
 table,
@@ -50,4 +65,10 @@ td {
 
 .tr__body:nth-of-type(2n + 2) td {
   background-color: #fff2e7;
+}
+
+table,
+th:last-child,
+td:last-child {
+  border-right: none;
 }

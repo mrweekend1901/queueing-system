@@ -35,18 +35,22 @@ function Table({ columns, data }: any) {
       navigate('/service/updateservice', { state: row });
     } else if (location.pathname === '/number') {
       navigate('/number/detailnumber', { state: row });
+    } else if (location.pathname === '/setting/settingrole') {
+      navigate('/setting/settingrole/updaterole', { state: row });
+    } else if (location.pathname === '/setting/settinguser') {
+      navigate('/setting/settinguser/updateuser', { state: row });
     }
   };
 
   const shouldShowUpdateColumn =
     location.pathname !== '/number' &&
-    location.pathname !== '/report' &&
-    location.pathname !== '/service/detailservice'; // Kiểm tra path hiện tại
+    location.pathname !== '/service/detailservice' &&
+    location.pathname !== '/setting/history'; // Kiểm tra path hiện tại
   const shouldShowDetailColumn =
-    location.pathname !== '/report' &&
     location.pathname !== '/service/detailservice' &&
     location.pathname !== '/setting/settingrole' &&
-    location.pathname !== '/setting/settinguser'; // Kiểm tra path hiện tại
+    location.pathname !== '/setting/settinguser' &&
+    location.pathname !== '/setting/history'; // Kiểm tra path hiện tại
 
   const tableInstance = useTable({
     columns: memoizedColumns,

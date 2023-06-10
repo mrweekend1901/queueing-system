@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import './dropdown.css';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
+import { faSort } from '@fortawesome/free-solid-svg-icons';
+import './icondropdown.css';
 
 interface DropDownProps {
   id: string;
-  placeholder: string;
   dropdownWidth: string;
   dropdownHeight: string;
   initialDeviceType?: string;
@@ -13,24 +12,14 @@ interface DropDownProps {
   onSelect: (selectedOption: string) => void;
 }
 
-const DropDown: React.FC<DropDownProps> = ({
-  placeholder,
+const IconDropDown: React.FC<DropDownProps> = ({
   dropdownWidth,
   dropdownHeight,
   options,
-  initialDeviceType, // Thêm dấu ? để đánh dấu là có thể truyền hoặc không truyền
   onSelect,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | undefined>(undefined); // Thay đổi kiểu dữ liệu của selectedOption
-
-  useEffect(() => {
-    if (initialDeviceType) {
-      setSelectedOption(initialDeviceType);
-    } else {
-      setSelectedOption(placeholder);
-    }
-  }, [initialDeviceType, placeholder]);
 
   const handleDropdownToggle = () => {
     setIsOpen(!isOpen);
@@ -43,24 +32,18 @@ const DropDown: React.FC<DropDownProps> = ({
   };
 
   return (
-    <div className="dropdown-wrapper">
+    <div className="dropdown-wrapper dropdown-wrapper--icon">
       <div
-        className={`dropdown-toggle ${isOpen ? 'drop-active' : ''}`}
+        className="dropdown-toggle"
         onClick={handleDropdownToggle}
         style={{ width: dropdownWidth, height: dropdownHeight }}
       >
-        {selectedOption || placeholder} {/* Sử dụng selectedOption hoặc placeholder */}
-        <FontAwesomeIcon className="dropdown-icon" icon={isOpen ? faCaretUp : faCaretDown} />
+        <FontAwesomeIcon icon={faSort} />
       </div>
       {isOpen && (
         <div className="dropdown-options">
           {options.map((option, index) => (
-            <div
-              key={index}
-              className="dropdown-option"
-              style={{ width: dropdownWidth }}
-              onClick={() => handleOptionSelect(option)}
-            >
+            <div key={index} className="dropdown-option" onClick={() => handleOptionSelect(option)}>
               {option}
             </div>
           ))}
@@ -70,4 +53,4 @@ const DropDown: React.FC<DropDownProps> = ({
   );
 };
 
-export default DropDown;
+export default IconDropDown;

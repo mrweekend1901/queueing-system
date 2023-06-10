@@ -1,0 +1,10 @@
+.dropdown-wrapper--icon .dropdown-toggle {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+}
+
+.dropdown-wrapper--icon .dropdown-options {
+  min-width: 220px;
+  text-align: left;
+}
