@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../CalendarPicker/CalendarPicker.css';
+import './Calendar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -59,7 +59,7 @@ const Calendar: React.FC<CalendarPickerProps> = () => {
     }
 
     const totalDaysDisplayed = calendarDays.length;
-    const remainingCells = 42 - totalDaysDisplayed;
+    const remainingCells = 35 - totalDaysDisplayed;
     for (let i = 1; i <= remainingCells; i++) {
       const day = i;
       calendarDays.push(

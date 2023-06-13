@@ -16,6 +16,7 @@ import { Timestamp, collection, getDocs } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 import DropDown from '../../components/Dropdown';
 import CalendarPicker from '../../components/CalendarPicker';
+import { CalendarDate } from '../../components/CalendarPicker';
 
 interface Data {
   numberId: string;
@@ -47,8 +48,10 @@ export function formatTimestamp(timestamp: any) {
     const date = newTimestamp.toDate();
     const hours = date.getHours().toString().padStart(2, '0');
     const minutes = date.getMinutes().toString().padStart(2, '0');
-    const formattedDate = date.toLocaleDateString();
-    return `${hours}:${minutes} - ${formattedDate}`;
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear().toString();
+    return `${hours}:${minutes} - ${day}/${month}/${year}`;
   }
   return '';
 }
@@ -61,6 +64,18 @@ function NumberPage() {
     supply: 'Tất cả',
   });
   const [searchKeyword, setSearchKeyword] = useState('');
+
+  // Lấy startday và endday truyền từ CalendarPicker
+  const [startDay, setStartDay] = useState<CalendarDate | null>(null);
+  const [endDay, setEndDay] = useState<CalendarDate | null>(null);
+
+  const handleStartDayChange = (startDay: CalendarDate | null) => {
+    setStartDay(startDay);
+  };
+
+  const handleEndDayChange = (endDay: CalendarDate | null) => {
+    setEndDay(endDay);
+  };
 
   const handleDropdownSelect = (selectedOption: string, kind: string) => {
     setFilter({ ...filter, [kind]: selectedOption });
@@ -94,6 +109,44 @@ function NumberPage() {
     }
     if (filter.supply !== 'Tất cả' && row.supply !== filter.supply) {
       return false;
+    }
+
+    if (startDay !== null && endDay !== null) {
+      if (row.timeStart instanceof Timestamp && row.timeEnd instanceof Timestamp) {
+        const rowStartDate = row.timeStart.toDate();
+        const rowStartDay = rowStartDate.getDate();
+        const rowStartMonth = rowStartDate.getMonth() + 1;
+        const rowStartYear = rowStartDate.getFullYear();
+
+        const rowEndDate = row.timeEnd.toDate();
+        const rowEndDay = rowEndDate.getDate();
+        const rowEndMonth = rowEndDate.getMonth() + 1;
+        const rowEndYear = rowEndDate.getFullYear();
+
+        const startDayValue = startDay.day;
+        const startMonthValue = startDay.month + 1;
+        const startYearValue = startDay.year;
+
+        const endDayValue = endDay.day;
+        const endMonthValue = endDay.month + 1;
+        const endYearValue = endDay.year;
+
+        const isRowBeforeStartDay =
+          rowStartYear < startYearValue ||
+          (rowStartYear === startYearValue &&
+            (rowStartMonth < startMonthValue ||
+              (rowStartMonth === startMonthValue && rowStartDay < startDayValue)));
+
+        const isRowAfterEndDay =
+          rowEndYear > endYearValue ||
+          (rowEndYear === endYearValue &&
+            (rowEndMonth > endMonthValue ||
+              (rowEndMonth === endMonthValue && rowEndDay > endDayValue)));
+
+        if (isRowBeforeStartDay || isRowAfterEndDay) {
+          return false;
+        }
+      }
     }
     return true;
   });
@@ -182,7 +235,12 @@ function NumberPage() {
             <label htmlFor="" className="feature__name">
               Chọn thời gian
             </label>
-            <CalendarPicker />
+            <CalendarPicker
+              dataStartDay={startDay}
+              dataEndDay={endDay}
+              onStartDayChange={handleStartDayChange}
+              onEndDayChange={handleEndDayChange}
+            />
           </div>
           <div className="feature__group search__group">
             <label htmlFor="search-input" className="feature__name">

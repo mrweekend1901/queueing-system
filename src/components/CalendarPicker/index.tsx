@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../CalendarPicker/CalendarPicker.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -9,10 +9,17 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 // Định nghĩa kiểu dữ liệu cho ngày trong lịch
-type CalendarDate = {
+export type CalendarDate = {
   day: number;
   month: number;
   year: number;
+};
+
+type CalendarPickerProps = {
+  dataStartDay?: CalendarDate | null;
+  dataEndDay?: CalendarDate | null;
+  onStartDayChange?: (startDay: CalendarDate | null) => void;
+  onEndDayChange?: (endDay: CalendarDate | null) => void;
 };
 
 // Tên các tháng trong năm
@@ -31,7 +38,7 @@ const monthNames: string[] = [
   'Dec',
 ];
 
-const CalendarPicker: React.FC = () => {
+const CalendarPicker: React.FC<CalendarPickerProps> = ({ onStartDayChange, onEndDayChange }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth()); // Tháng hiện tại
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear()); // Năm hiện tại
   const [selectedStartDate, setSelectedStartDate] = useState<CalendarDate | null>(null); // Ngày bắt đầu được chọn
@@ -135,7 +142,6 @@ const CalendarPicker: React.FC = () => {
       );
       const clickedDateObj = new Date(year, month, day);
       if (clickedDateObj < startDate) {
-        setSelectedStartDate(clickedDate);
         setSelectedEndDate(selectedStartDate);
         setSelectedStartDate(clickedDate);
       } else {
@@ -178,6 +184,25 @@ const CalendarPicker: React.FC = () => {
     });
   };
 
+  useEffect(() => {
+    if (selectedStartDate && selectedEndDate) {
+      if (onStartDayChange) {
+        onStartDayChange(selectedStartDate);
+      }
+
+      if (onEndDayChange) {
+        onEndDayChange(selectedEndDate);
+      }
+    } else {
+      if (onStartDayChange) {
+        onStartDayChange(null);
+      }
+      if (onEndDayChange) {
+        onEndDayChange(null);
+      }
+    }
+  }, [selectedStartDate, selectedEndDate, onStartDayChange, onEndDayChange]);
+
   return (
     <div className="main">
       <span className="calendar-input-group">
@@ -189,7 +214,7 @@ const CalendarPicker: React.FC = () => {
           className={`date__from ${isOpen ? 'calendar-input-active' : ''}`}
           value={
             selectedStartDate
-              ? `${selectedStartDate.day}/${selectedStartDate.month}/${selectedStartDate.year}`
+              ? `${selectedStartDate.day}/${selectedStartDate.month + 1}/${selectedStartDate.year}`
               : ''
           }
           onClick={handleToggleCalendar}
@@ -206,7 +231,7 @@ const CalendarPicker: React.FC = () => {
           className={`date__to ${isOpen ? 'calendar-input-active' : ''}`}
           value={
             selectedEndDate
-              ? `${selectedEndDate.day}/${selectedEndDate.month}/${selectedEndDate.year}`
+              ? `${selectedEndDate.day}/${selectedEndDate.month + 1}/${selectedEndDate.year}`
               : ''
           }
           onClick={handleToggleCalendar}
