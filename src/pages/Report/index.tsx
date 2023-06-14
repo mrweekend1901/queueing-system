@@ -14,6 +14,7 @@ import CalendarPicker from '../../components/CalendarPicker';
 import IconDropDown from '../../components/IconDropdown';
 import TableWithFilter from '../../components/TableWithFilter';
 import IconDropDownCheckbox from '../../components/IconDropdownCheckbox';
+import { CalendarDate } from '../../components/CalendarPicker';
 
 interface Data {
   numberId: string;
@@ -25,12 +26,20 @@ interface Data {
 }
 
 // Hiển thị Giờ - Ngày
-function formatTimestamp(timestamp: any) {
-  const date = timestamp.toDate();
-  const hours = date.getHours().toString().padStart(2, '0');
-  const minutes = date.getMinutes().toString().padStart(2, '0');
-  const formattedDate = date.toLocaleDateString();
-  return `${hours}:${minutes} - ${formattedDate}`;
+export function formatTimestamp(timestamp: any) {
+  if (typeof timestamp === 'object' && timestamp.seconds && timestamp.nanoseconds) {
+    const newTimestamp = Timestamp.fromMillis(
+      timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000,
+    );
+    const date = newTimestamp.toDate();
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear().toString();
+    return `${hours}:${minutes} - ${day}/${month}/${year}`;
+  }
+  return '';
 }
 
 const dropdownListID = ['Tất cả', '2010001', '2010002', '2010005'];
@@ -41,7 +50,7 @@ const dropdownListService = [
   'Khám sản - Phụ khoa',
   'Khám răng hàm mặt',
 ];
-// const dropdownListID = ['Tất cả', '2010001', '2010002', '2010005'];
+const dropdownListTime = ['Tất cả', '00:00 09/05/2023', '00:00 17/05/2023', '00:00 10/05/2023'];
 const dropdownListStatus = ['Tất cả', 'Đang chờ', 'Đã sử dụng', 'Bỏ qua'];
 const dropdownListSupply = ['Tất cả', 'Kiosk', 'Hệ thống'];
 
@@ -51,8 +60,23 @@ function Report() {
     numberId: 'Tất cả',
     status: 'Tất cả',
     supply: 'Tất cả',
+    timeStart: null,
     serviceName: [] as string[],
   });
+
+  console.log(filter);
+
+  // Lấy startday và endday truyền từ CalendarPicker
+  const [startDay, setStartDay] = useState<CalendarDate | null>(null);
+  const [endDay, setEndDay] = useState<CalendarDate | null>(null);
+
+  const handleStartDayChange = (startDay: CalendarDate | null) => {
+    setStartDay(startDay);
+  };
+
+  const handleEndDayChange = (endDay: CalendarDate | null) => {
+    setEndDay(endDay);
+  };
 
   const handleDropdownSelect = (selectedOption: string, kind: string) => {
     setFilter({ ...filter, [kind]: selectedOption });
@@ -82,15 +106,37 @@ function Report() {
     if (filter.supply !== 'Tất cả' && row.supply !== filter.supply) {
       return false;
     }
-    if (filter.supply !== 'Tất cả' && row.supply !== filter.supply) {
-      return false;
-    }
     if (
       filter.serviceName.length > 0 &&
       !filter.serviceName.includes('Tất cả') &&
       !filter.serviceName.includes(row.serviceName)
     ) {
       return false;
+    }
+    if (filter.timeStart !== null && row.timeStart !== filter.timeStart) {
+      return false;
+    }
+    if (startDay !== null) {
+      if (row.timeStart instanceof Timestamp) {
+        const rowStartDate = row.timeStart.toDate();
+        const rowStartDay = rowStartDate.getDate();
+        const rowStartMonth = rowStartDate.getMonth() + 1;
+        const rowStartYear = rowStartDate.getFullYear();
+
+        const startDayValue = startDay.day;
+        const startMonthValue = startDay.month + 1;
+        const startYearValue = startDay.year;
+
+        const isRowBeforeStartDay =
+          rowStartYear < startYearValue ||
+          (rowStartYear === startYearValue &&
+            (rowStartMonth < startMonthValue ||
+              (rowStartMonth === startMonthValue && rowStartDay < startDayValue)));
+
+        if (isRowBeforeStartDay) {
+          return false;
+        }
+      }
     }
     return true;
   });
@@ -134,8 +180,8 @@ function Report() {
           id="numberId"
           dropdownWidth="30px"
           dropdownHeight="30px"
-          options={dropdownListID}
-          onSelect={selectedOption => handleDropdownSelect(selectedOption, 'serviceName')}
+          options={dropdownListTime}
+          onSelect={selectedOption => handleDropdownSelect(selectedOption, 'timeStart')}
         />
       ),
     },
@@ -186,7 +232,12 @@ function Report() {
               <label htmlFor="" className="feature__name">
                 Chọn thời gian
               </label>
-              <CalendarPicker />
+              <CalendarPicker
+                dataStartDay={startDay}
+                dataEndDay={endDay}
+                onStartDayChange={handleStartDayChange}
+                onEndDayChange={handleEndDayChange}
+              />
             </div>
           </div>
         </div>

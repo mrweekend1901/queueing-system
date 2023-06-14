@@ -67,7 +67,7 @@ function Forgetpass() {
           </div>
 
           <div className="btn-group">
-            <Link to="/login">
+            <Link to="/">
               <button className="btn form-cancel">Hủy</button>
             </Link>
             <button type="submit" className="btn form-continue" disabled={isLoading}>

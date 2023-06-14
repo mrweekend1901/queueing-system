@@ -1,6 +1,15 @@
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisVertical, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import {
+  faComments,
+  faDisplay,
+  faEllipsisVertical,
+  faFileLines,
+  faGear,
+  faGripVertical,
+  faLayerGroup,
+  faRightFromBracket,
+} from '@fortawesome/free-solid-svg-icons';
 import './sidebar.css';
 import images from '../../../assets/images';
 
@@ -18,32 +27,32 @@ const Sidebar = ({ children }: any) => {
     {
       path: '/dashboard',
       name: 'Dashboard',
-      icon: <img src={images.dashboard} alt="dashboard_icon" />,
+      icon: <FontAwesomeIcon icon={faGripVertical} />,
     },
     {
       path: '/device',
       name: 'Thiết bị',
-      icon: <img src={images.device} alt="device_icon" />,
+      icon: <FontAwesomeIcon icon={faDisplay} />,
     },
     {
       path: '/service',
       name: 'Dịch vụ',
-      icon: <img src={images.service} alt="service_icon" />,
+      icon: <FontAwesomeIcon icon={faComments} />,
     },
     {
       path: '/number',
       name: 'Cấp số',
-      icon: <img src={images.number} alt="number_icon" />,
+      icon: <FontAwesomeIcon icon={faLayerGroup} />,
     },
     {
       path: '/report',
       name: 'Báo cáo',
-      icon: <img src={images.report} alt="report_icon" />,
+      icon: <FontAwesomeIcon icon={faFileLines} />,
     },
     {
       path: '/setting',
       name: 'Cài đặt hệ thống',
-      icon: <img src={images.setting} alt="setting_icon" />,
+      icon: <FontAwesomeIcon icon={faGear} />,
       drop: <FontAwesomeIcon icon={faEllipsisVertical} />,
     },
   ];
@@ -78,7 +87,7 @@ const Sidebar = ({ children }: any) => {
     // Xóa loginData từ localStorage
     localStorage.removeItem('loginData');
     // Chuyển hướng đến trang đăng nhập
-    navigate('/login');
+    navigate('/');
   };
 
   return (

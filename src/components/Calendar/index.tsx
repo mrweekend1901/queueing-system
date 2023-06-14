@@ -11,6 +11,12 @@ type CalendarDate = {
   year: number;
 };
 
+interface CalendarState {
+  currentMonth: number;
+  currentYear: number;
+  selectedDate: CalendarDate | null;
+}
+
 const monthNames: string[] = [
   'Jan',
   'Feb',
@@ -26,11 +32,12 @@ const monthNames: string[] = [
   'Dec',
 ];
 
-const Calendar: React.FC<CalendarPickerProps> = () => {
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
-  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+const Calendar: React.FC<CalendarPickerProps> = (): JSX.Element => {
+  const [currentMonth, setCurrentMonth] = useState<number>(new Date().getMonth());
+  const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear());
+  const [selectedDate, setSelectedDate] = useState<CalendarDate | null>(null);
 
-  const renderCalendar = () => {
+  const renderCalendar = (): JSX.Element[] => {
     const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
     const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
     const prevMonthDays = new Date(currentYear, currentMonth, 0).getDate();
@@ -46,12 +53,16 @@ const Calendar: React.FC<CalendarPickerProps> = () => {
     }
 
     for (let i = 1; i <= daysInMonth; i++) {
-      const isSelected = false; // TODO: Check if the current date is selected
+      const isSelected =
+        selectedDate?.day === i &&
+        selectedDate?.month === currentMonth &&
+        selectedDate?.year === currentYear;
       const day = i;
       calendarDays.push(
         <div
           key={`current-${day}`}
           className={`calendar-day ${isSelected ? 'calendar-day-selected' : ''}`}
+          onClick={() => handleDateClick(day)}
         >
           {day}
         </div>,
@@ -72,22 +83,32 @@ const Calendar: React.FC<CalendarPickerProps> = () => {
     return calendarDays;
   };
 
-  const handlePrevMonthClick = () => {
-    setCurrentMonth(prevMonth => {
-      const newMonth = prevMonth === 0 ? 11 : prevMonth - 1;
-      const newYear = prevMonth === 0 ? currentYear - 1 : currentYear;
+  const handlePrevMonthClick = (): void => {
+    setCurrentMonth((prevMonth: number) => {
+      const newMonth: number = prevMonth === 0 ? 11 : prevMonth - 1;
+      const newYear: number = prevMonth === 0 ? currentYear - 1 : currentYear;
       setCurrentYear(newYear);
       return newMonth;
     });
   };
 
-  const handleNextMonthClick = () => {
-    setCurrentMonth(prevMonth => {
-      const newMonth = prevMonth === 11 ? 0 : prevMonth + 1;
-      const newYear = prevMonth === 11 ? currentYear + 1 : currentYear;
+  const handleNextMonthClick = (): void => {
+    setCurrentMonth((prevMonth: number) => {
+      const newMonth: number = prevMonth === 11 ? 0 : prevMonth + 1;
+      const newYear: number = prevMonth === 11 ? currentYear + 1 : currentYear;
       setCurrentYear(newYear);
       return newMonth;
     });
+  };
+
+  const handleDateClick = (day: number): void => {
+    const clickedDate: CalendarDate = {
+      day,
+      month: currentMonth,
+      year: currentYear,
+    };
+
+    setSelectedDate(clickedDate);
   };
 
   return (
@@ -99,7 +120,10 @@ const Calendar: React.FC<CalendarPickerProps> = () => {
             icon={faAngleLeft}
             onClick={handlePrevMonthClick}
           />
-          <h2 className="calendar-day-header">{`${monthNames[currentMonth]} ${currentYear}`}</h2>
+          <h2 className="calendar-day-header">
+            {selectedDate &&
+              `${selectedDate?.day} ${monthNames[selectedDate?.month || 0]} ${selectedDate?.year}`}
+          </h2>
           <FontAwesomeIcon
             className="icon-next-month"
             icon={faAngleRight}

@@ -24,11 +24,11 @@ const tagOptions = [
 ];
 
 interface FormData {
-  deviceID: string;
+  deviceId: string;
   deviceType: string;
   deviceName: string;
   userName: string;
-  addressIP: string;
+  ipAddress: string;
   passWord: string;
   serviceUse: string;
   connectStatus: boolean;
@@ -39,11 +39,11 @@ function Adddevice() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const [formData, setFormData] = useState<FormData>({
-    deviceID: '',
+    deviceId: '',
     deviceType: '',
     deviceName: '',
     userName: '',
-    addressIP: '',
+    ipAddress: '',
     passWord: '',
     serviceUse: '',
     connectStatus: true,
@@ -80,11 +80,11 @@ function Adddevice() {
       console.log('Device added with ID: ', docRef.id);
       // Reset form data
       setFormData({
-        deviceID: '',
+        deviceId: '',
         deviceType: '',
         deviceName: '',
         userName: '',
-        addressIP: '',
+        ipAddress: '',
         passWord: '',
         serviceUse: '',
         connectStatus: true,
@@ -115,15 +115,15 @@ function Adddevice() {
             <div className="content__label">Thông tin thiết bị</div>
             <span className="form__add--2-col">
               <div className="form__group">
-                <label htmlFor="deviceID" className="form__label">
+                <label htmlFor="deviceId" className="form__label">
                   Mã thiết bị:
                   <span className="form__label--icon">*</span>
                 </label>
                 <input
                   className="form__value"
                   type="text"
-                  name="deviceID"
-                  value={formData.deviceID}
+                  name="deviceId"
+                  value={formData.deviceId}
                   placeholder="Nhập mã thiết bị"
                   onChange={handleInputChange}
                 />
@@ -179,15 +179,15 @@ function Adddevice() {
               <span className="error__massage"></span>
 
               <div className="form__group">
-                <label htmlFor="addressIP" className="form__label">
+                <label htmlFor="ipAddress" className="form__label">
                   Địa chỉ IP:
                   <span className="form__label--icon">*</span>
                 </label>
                 <input
                   className="form__value"
                   type="text"
-                  name="addressIP"
-                  value={formData.addressIP}
+                  name="ipAddress"
+                  value={formData.ipAddress}
                   placeholder="Nhập địa chỉ IP"
                   onChange={handleInputChange}
                 />

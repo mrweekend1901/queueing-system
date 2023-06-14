@@ -242,6 +242,10 @@
 }
 
 .dashboard__rightbar .overview__item-chart {
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: center;
   flex: 1;
 }
 
@@ -296,4 +300,32 @@
   font-weight: 700;
   font-size: 14px;
   line-height: 18px;
+}
+
+.dashboard__rightbar .item-chart {
+  width: 64px;
+}
+
+.dashboard__rightbar .item-chart2 {
+  top: 8px;
+  position: absolute;
+  width: 48px;
+  left: 16.5px;
+  font-weight: 700;
+}
+
+.dashboard__rightbar .item-chart3 {
+  top: 14.5px;
+  position: absolute;
+  width: 34px;
+  left: 24px;
+  font-weight: 700;
+}
+
+.item-chart2 .CircularProgressbar-text {
+  transform: translate(-21px, 7px);
+}
+
+.item-chart3 .CircularProgressbar-text {
+  transform: translate(-29px, 7px);
 }

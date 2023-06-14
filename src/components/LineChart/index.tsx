@@ -1,4 +1,4 @@
-import { Doughnut, Line } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   Title,
@@ -22,13 +22,15 @@ ChartJS.register(
   Filler,
 );
 
+const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
 function LineChart() {
   const [data, setData] = useState({
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    labels: month,
     datasets: [
       {
         label: 'Thống kê theo tháng',
-        data: [2200, 3000, 3500, 4000, 2900, 4200, 3000, 2700, 1500, 2000, 3000, 4000],
+        data: [2200, 3000, 3500, 4000, 2900, 4200, 3000, 2700, 1500, 3000, 3500, 4000],
         backgroundColor: (context: any) => {
           const bgColor = ['rgba(206, 221, 255, 0)', 'rgba(206, 221, 255, 1)'];
 

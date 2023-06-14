@@ -42,7 +42,7 @@ function Newpass() {
           });
 
           console.log('Mật khẩu đã được cập nhật thành công');
-          navigate('/login');
+          navigate('/');
         } catch (error) {
           console.error('Lỗi khi cập nhật mật khẩu:', error);
         }

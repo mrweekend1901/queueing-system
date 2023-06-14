@@ -14,19 +14,52 @@ import DropDown from '../../components/Dropdown';
 import { useState } from 'react';
 import UserSide from '../../components/UserSide';
 import Calendar from '../../components/Calendar';
-import RadialBarChart from '../../components/RadialBarChart';
-import { colors } from 'react-select/dist/declarations/src/theme';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 
-const dropdownList = ['Ngày', 'Tháng', 'Năm'];
+const dropdownList = ['Ngày', 'Tháng'];
 
-function Dashboard() {
+const Dashboard: React.FC = () => {
   const [filter, setFilter] = useState({
-    date: 'Ngày',
+    date: 'Tháng',
   });
 
   const handleDropdownSelect = (selectedOption: string, kind: string) => {
     setFilter({ ...filter, [kind]: selectedOption });
   };
+
+  const commonStyles = {
+    pathColor: `rgba(255, 117, 6, 1)`,
+    textColor: '#f88',
+    trailColor: '#d6d6d6',
+    pathTransitionDuration: 0.5,
+  };
+
+  const styles = buildStyles(commonStyles);
+
+  const styles2 = buildStyles({
+    ...commonStyles,
+    pathColor: `rgba(126, 125, 136, 1)`,
+    textColor: '#535261',
+    textSize: '24px',
+  });
+
+  const styles3 = buildStyles({
+    ...commonStyles,
+    pathColor: `rgba(66, 119, 255, 1)`,
+  });
+
+  const styles4 = buildStyles({
+    ...commonStyles,
+    pathColor: `rgba(53, 199, 90, 1)`,
+  });
+
+  const styles5 = buildStyles({
+    ...commonStyles,
+    pathColor: `rgba(241, 120, 182, 1)`,
+    textColor: '#535261',
+    textSize: '30px',
+  });
+
   return (
     <span className="space__dashboard">
       <div className="dashboard__page">
@@ -133,7 +166,16 @@ function Dashboard() {
           <h2 className="overview__head">Tổng quan</h2>
           <span className="overview__body">
             <span className="overview__item">
-              <div className="overview__item-chart"></div>
+              <div className="overview__item-chart">
+                <CircularProgressbar className="item-chart" value={90} styles={styles} />
+
+                <CircularProgressbar
+                  className="item-chart2"
+                  value={10}
+                  text={`${90}%`}
+                  styles={styles2}
+                />
+              </div>
               <div className="overview__item-number-group">
                 <p className="overview__item-number">4.221</p>
                 <span className="overview__item-name-group" style={{ color: '#FF7506' }}>
@@ -167,7 +209,16 @@ function Dashboard() {
               </div>
             </span>
             <span className="overview__item">
-              <div className="overview__item-chart"></div>
+              <div className="overview__item-chart">
+                <CircularProgressbar className="item-chart" value={76} styles={styles3} />
+
+                <CircularProgressbar
+                  className="item-chart2"
+                  value={24}
+                  text={`${76}%`}
+                  styles={styles2}
+                />
+              </div>
               <div className="overview__item-number-group">
                 <p className="overview__item-number">276</p>
                 <span className="overview__item-name-group" style={{ color: '#4277FF' }}>
@@ -201,7 +252,18 @@ function Dashboard() {
               </div>
             </span>
             <span className="overview__item">
-              <div className="overview__item-chart"></div>
+              <div className="overview__item-chart">
+                <CircularProgressbar className="item-chart" value={86} styles={styles4} />
+
+                <CircularProgressbar className="item-chart2" value={10} styles={styles2} />
+
+                <CircularProgressbar
+                  className="item-chart3"
+                  value={4}
+                  text={`${86}%`}
+                  styles={styles5}
+                />
+              </div>
               <div className="overview__item-number-group">
                 <p className="overview__item-number">4.221</p>
                 <span className="overview__item-name-group" style={{ color: '#35C75A' }}>
@@ -253,6 +315,6 @@ function Dashboard() {
       </div>
     </span>
   );
-}
+};
 
 export default Dashboard;
