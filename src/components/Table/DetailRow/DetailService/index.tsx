@@ -198,7 +198,7 @@ function DetailService() {
               <FontAwesomeIcon className="btn-update__icon" icon={faPen} />
               Cập nhật danh sách
             </button>
-            <Link className="btn__link" to="/service">
+            <Link className="btn__link" to="/queueing-system/service">
               <button className="btn__back btn-no-martop radius-bot">
                 <FontAwesomeIcon className="btn-back__icon" icon={faRotateLeft} />
                 Quay lại

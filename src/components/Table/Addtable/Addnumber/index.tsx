@@ -75,7 +75,7 @@ function Addnumber() {
               />
             </div>
             <div className="btn__group">
-              <Link to="/device">
+              <Link to="/queueing-system/number">
                 <button className="btn form-cancel">Hủy bỏ</button>
               </Link>
               <button className="btn form-submit" onClick={openPopup}>

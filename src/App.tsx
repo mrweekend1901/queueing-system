@@ -31,10 +31,10 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/queueing-system/" element={<Login />} />
+          <Route path="/queueing-system" element={<Login />} />
           <Route path="/queueing-system/forgetpass" element={<Forgetpass />} />
           <Route path="/queueing-system/newpass" element={<Newpass />} />
-          <Route path="/queueing-system/*" element={<MainContent />} />
+          <Route path="/*" element={<MainContent />} />
         </Routes>
       </div>
     </Router>
@@ -46,20 +46,20 @@ function MainContent() {
     <>
       <Sidebar>
         <Routes>
-          <Route path="/queueing-system/home/" element={<Home />} />
-          <Route path="/queueing-system/dashboard/" element={<Dashboard />} />
-          <Route path="/queueing-system/device/" element={<Device />} />
-          <Route path="/queueing-system/service/" element={<Service />} />
-          <Route path="/queueing-system/number/" element={<NumberPage />} />
-          <Route path="/queueing-system/queueing-system/report" element={<Report />} />
+          <Route path="/queueing-system/home" element={<Home />} />
+          <Route path="/queueing-system/dashboard" element={<Dashboard />} />
+          <Route path="/queueing-system/device" element={<Device />} />
+          <Route path="/queueing-system/service" element={<Service />} />
+          <Route path="/queueing-system/number" element={<NumberPage />} />
+          <Route path="/queueing-system/report" element={<Report />} />
           <Route path="/queueing-system/setting/settingrole" element={<SettingRole />} />
           <Route path="/queueing-system/setting/settinguser" element={<SettingUser />} />
-          <Route path="/queueing-system/setting/history/" element={<HistoryPage />} />
+          <Route path="/queueing-system/setting/history" element={<HistoryPage />} />
           <Route path="/queueing-system/setting/settingrole/addrole" element={<Addrole />} />
           <Route path="/queueing-system/setting/settinguser/adduser" element={<AddUser />} />
           <Route path="/queueing-system/setting/settingrole/updaterole" element={<UpdateRole />} />
           <Route path="/queueing-system/setting/settinguser/updateuser" element={<UpdateUser />} />
-          <Route path="/queueing-system/setting/" element={<Setting />} />
+          <Route path="/queueing-system/setting" element={<Setting />} />
           <Route path="/queueing-system/device/adddevice" element={<Adddevice />} />
           <Route path="/queueing-system/device/updatedevice" element={<UpdateDevice />} />
           <Route path="/queueing-system/service/addservice" element={<Addservice />} />

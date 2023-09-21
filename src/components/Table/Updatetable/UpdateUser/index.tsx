@@ -303,7 +303,7 @@ function UpdateUser() {
             </div>
           </div>
           <div className="btn__group">
-            <Link to="/setting/settinguser">
+            <Link to="/queueing-system/setting/settinguser">
               <button className="btn form-cancel" style={{ background: '#FFF2E7' }}>
                 Hủy bỏ
               </button>

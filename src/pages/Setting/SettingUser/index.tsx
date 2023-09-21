@@ -125,7 +125,7 @@ function SettingUser() {
 
         <div className="content__board">
           <Table columns={columns} data={filteredData} />
-          <Link to="/setting/settinguser/adduser" className="addtable__link">
+          <Link to="/queueing-system/setting/settinguser/adduser" className="addtable__link">
             <button className="add__table">
               <FontAwesomeIcon icon={faSquarePlus} className="add__table-icon" />
               Thêm tài khoản

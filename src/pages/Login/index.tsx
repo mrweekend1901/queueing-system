@@ -36,7 +36,7 @@ function Login() {
         if (data?.username === loginData.username && data?.password === loginData.password) {
           // Đăng nhập thành công, chuyển hướng đến trang "/home" và truyền dữ liệu loginData
           localStorage.setItem('loginData', JSON.stringify(loginData));
-          navigate('/queueing-system/home/');
+          navigate('/queueing-system/home');
         } else {
           setErrorMessage('Sai mật khẩu hoặc tên đăng nhập');
         }

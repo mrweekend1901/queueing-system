@@ -17,11 +17,11 @@ function Table({ columns, data }: any) {
   const handleRowClick = (row: any) => {
     setSelectedRow(row);
 
-    if (location.pathname === '/queueing-system/device/') {
+    if (location.pathname === '/queueing-system/device') {
       navigate('/queueing-system/device/detaildevice', { state: row });
-    } else if (location.pathname === '/queueing-system/service/') {
+    } else if (location.pathname === '/queueing-system/service') {
       navigate('/queueing-system/service/detailservice', { state: row });
-    } else if (location.pathname === '/queueing-system/number/') {
+    } else if (location.pathname === '/queueing-system/number') {
       navigate('/queueing-system/number/detailnumber', { state: row });
     }
   };
@@ -29,11 +29,11 @@ function Table({ columns, data }: any) {
   const handleRowUpdateClick = (row: any) => {
     setSelectedRow(row);
 
-    if (location.pathname === '/queueing-system/device/') {
+    if (location.pathname === '/queueing-system/device') {
       navigate('/queueing-system/device/updatedevice', { state: row });
-    } else if (location.pathname === '/queueing-system/service/') {
+    } else if (location.pathname === '/queueing-system/service') {
       navigate('/queueing-system/service/updateservice', { state: row });
-    } else if (location.pathname === '/queueing-system/number/') {
+    } else if (location.pathname === '/queueing-system/number') {
       navigate('/queueing-system/number/detailnumber', { state: row });
     } else if (location.pathname === '/queueing-system/setting/settingrole') {
       navigate('/queueing-system/setting/settingrole/updaterole', { state: row });
@@ -43,7 +43,7 @@ function Table({ columns, data }: any) {
   };
 
   const shouldShowUpdateColumn =
-    location.pathname !== '/queueing-system/number/' &&
+    location.pathname !== '/queueing-system/number' &&
     location.pathname !== '/queueing-system/service/detailservice' &&
     location.pathname !== '/queueing-system/setting/history'; // Kiểm tra path hiện tại
   const shouldShowDetailColumn =

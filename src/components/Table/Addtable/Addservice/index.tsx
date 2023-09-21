@@ -212,7 +212,7 @@ function Addservice() {
             </div>
           </div>
           <div className="btn__group">
-            <Link to="/service">
+            <Link to="/queueing-system/service/">
               <button className="btn form-cancel">Hủy bỏ</button>
             </Link>
             <button type="submit" className="btn form-submit">

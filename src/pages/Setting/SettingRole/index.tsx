@@ -92,7 +92,7 @@ function SettingRole() {
 
         <div className="content__board">
           <Table columns={columns} data={filteredData} />
-          <Link to="/setting/settingrole/addrole" className="addtable__link">
+          <Link to="/queueing-system/setting/settingrole/addrole" className="addtable__link">
             <button className="add__table">
               <FontAwesomeIcon icon={faSquarePlus} className="add__table-icon" />
               Thêm vai trò

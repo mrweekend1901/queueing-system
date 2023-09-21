@@ -261,7 +261,7 @@ function NumberPage() {
 
         <div className="content__board">
           <Table columns={columns} data={filteredData} />
-          <Link to="/number/addnumber" className="addtable__link">
+          <Link to="/queueing-system/number/addnumber" className="addtable__link">
             <button className="add__table">
               <FontAwesomeIcon icon={faSquarePlus} className="add__table-icon" />
               Cấp số mới

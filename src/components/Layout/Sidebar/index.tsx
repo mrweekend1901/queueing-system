@@ -25,32 +25,32 @@ const Sidebar = ({ children }: any) => {
 
   const menuItem: MenuItem[] = [
     {
-      path: '/queueing-system/dashboard/',
+      path: '/queueing-system/dashboard',
       name: 'Dashboard',
       icon: <FontAwesomeIcon icon={faGripVertical} />,
     },
     {
-      path: '/queueing-system/device/',
+      path: '/queueing-system/device',
       name: 'Thiết bị',
       icon: <FontAwesomeIcon icon={faDisplay} />,
     },
     {
-      path: '/queueing-system/service/',
+      path: '/queueing-system/service',
       name: 'Dịch vụ',
       icon: <FontAwesomeIcon icon={faComments} />,
     },
     {
-      path: '/queueing-system/number/',
+      path: '/queueing-system/number',
       name: 'Cấp số',
       icon: <FontAwesomeIcon icon={faLayerGroup} />,
     },
     {
-      path: '/queueing-system/report/',
+      path: '/queueing-system/report',
       name: 'Báo cáo',
       icon: <FontAwesomeIcon icon={faFileLines} />,
     },
     {
-      path: '/queueing-system/setting/',
+      path: '/queueing-system/setting',
       name: 'Cài đặt hệ thống',
       icon: <FontAwesomeIcon icon={faGear} />,
       drop: <FontAwesomeIcon icon={faEllipsisVertical} />,
@@ -87,7 +87,7 @@ const Sidebar = ({ children }: any) => {
     // Xóa loginData từ localStorage
     localStorage.removeItem('loginData');
     // Chuyển hướng đến trang đăng nhập
-    navigate('/queueing-system/');
+    navigate('/queueing-system');
   };
 
   return (

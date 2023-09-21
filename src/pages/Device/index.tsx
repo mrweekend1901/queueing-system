@@ -149,7 +149,7 @@ function Device() {
 
         <div className="content__board">
           <Table columns={columns} data={filteredData} />
-          <Link to="/device/adddevice" className="addtable__link">
+          <Link to="/queueing-system/device/adddevice" className="addtable__link">
             <button className="add__table">
               <FontAwesomeIcon icon={faSquarePlus} className="add__table-icon" />
               Thêm thiết bị

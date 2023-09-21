@@ -98,7 +98,7 @@ function DetailNumber() {
               </span>
             </div>
           </div>
-          <Link className="btn__link" to="/number">
+          <Link className="btn__link" to="/queueing-system/number">
             <button className="btn__back">
               <FontAwesomeIcon className="btn-back__icon" icon={faRotateLeft} />
               Quay lại

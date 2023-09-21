@@ -266,7 +266,7 @@ function UpdateRole() {
             </div>
           </div>
           <div className="btn__group">
-            <Link to="/setting/settingrole">
+            <Link to="/queueing-system/setting/settingrole">
               <button className="btn form-cancel" style={{ background: '#FFF2E7' }}>
                 Hủy bỏ
               </button>

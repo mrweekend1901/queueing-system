@@ -261,7 +261,7 @@ function UpdateDevice() {
             </div>
           </div>
           <div className="btn__group">
-            <Link to="/device">
+            <Link to="/queueing-system/device">
               <button className="btn form-cancel">Hủy bỏ</button>
             </Link>
             <button type="submit" className="btn form-submit">
