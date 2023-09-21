@@ -54,12 +54,12 @@ function MainContent() {
           <Route path="/queueing-system/queueing-system/report" element={<Report />} />
           <Route path="/queueing-system/setting/settingrole" element={<SettingRole />} />
           <Route path="/queueing-system/setting/settinguser" element={<SettingUser />} />
-          <Route path="/queueing-system/setting/history" element={<HistoryPage />} />
+          <Route path="/queueing-system/setting/history/" element={<HistoryPage />} />
           <Route path="/queueing-system/setting/settingrole/addrole" element={<Addrole />} />
           <Route path="/queueing-system/setting/settinguser/adduser" element={<AddUser />} />
           <Route path="/queueing-system/setting/settingrole/updaterole" element={<UpdateRole />} />
           <Route path="/queueing-system/setting/settinguser/updateuser" element={<UpdateUser />} />
-          <Route path="/queueing-system/setting" element={<Setting />} />
+          <Route path="/queueing-system/setting/" element={<Setting />} />
           <Route path="/queueing-system/device/adddevice" element={<Adddevice />} />
           <Route path="/queueing-system/device/updatedevice" element={<UpdateDevice />} />
           <Route path="/queueing-system/service/addservice" element={<Addservice />} />
