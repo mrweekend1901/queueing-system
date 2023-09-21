@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/queueing-system/static/css/main.b3107c26.css",
+    "main.js": "/queueing-system/static/js/main.081e5d44.js",
+    "static/js/787.b909a395.chunk.js": "/queueing-system/static/js/787.b909a395.chunk.js",
+    "static/media/Frame.svg": "/queueing-system/static/media/Frame.affd1509eec9360ef65e033b52316a72.svg",
+    "static/media/avatar_big.png": "/queueing-system/static/media/avatar_big.d1e8ba5c9b96a820b1b1.png",
+    "static/media/login__img.png": "/queueing-system/static/media/login__img.fed60d502ae434ffdee4.png",
+    "static/media/Logo alta.svg": "/queueing-system/static/media/Logo alta.cefffd539dcc79c41e9b86017019ee08.svg",
+    "static/media/service.svg": "/queueing-system/static/media/service.c85f9672cf27665ef4fd0f3b8b22af98.svg",
+    "static/media/setting.svg": "/queueing-system/static/media/setting.ac58000b886856c58d88ff0d242a3624.svg",
+    "static/media/element-4.svg": "/queueing-system/static/media/element-4.d6e45ac9cac3f2ec0bbccef3ffb2bd69.svg",
+    "static/media/bell.svg": "/queueing-system/static/media/bell.806ea277e61ba82617d2e893191ba632.svg",
+    "static/media/fi_more-vertical.svg": "/queueing-system/static/media/fi_more-vertical.407c62ca92f8e8b6f6b2c73aad869b13.svg",
+    "static/media/icon dasboard03.svg": "/queueing-system/static/media/icon dasboard03.9ac05785b70619afa46889011c1c19d7.svg",
+    "static/media/monitor.svg": "/queueing-system/static/media/monitor.f2fea2067d5e60571650700b6cb5c2a4.svg",
+    "index.html": "/queueing-system/index.html",
+    "main.b3107c26.css.map": "/queueing-system/static/css/main.b3107c26.css.map",
+    "main.081e5d44.js.map": "/queueing-system/static/js/main.081e5d44.js.map",
+    "787.b909a395.chunk.js.map": "/queueing-system/static/js/787.b909a395.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b3107c26.css",
+    "static/js/main.081e5d44.js"
+  ]
+}
