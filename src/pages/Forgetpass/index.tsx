@@ -26,7 +26,7 @@ function Forgetpass() {
 
     if (querySnapshot.size > 0) {
       // Email đã tồn tại trong Firestore, điều hướng đến /newpass
-      navigate('/newpass', { state: email });
+      navigate('/queueing-system/newpass', { state: email });
     } else {
       // Email không tồn tại trong Firestore, thực hiện xử lý thông báo lỗi
       setEmailError('Email không tồn tại');
@@ -67,7 +67,7 @@ function Forgetpass() {
           </div>
 
           <div className="btn-group">
-            <Link to="/">
+            <Link to="/queueing-system/">
               <button className="btn form-cancel">Hủy</button>
             </Link>
             <button type="submit" className="btn form-continue" disabled={isLoading}>

@@ -36,7 +36,7 @@ function Login() {
         if (data?.username === loginData.username && data?.password === loginData.password) {
           // Đăng nhập thành công, chuyển hướng đến trang "/home" và truyền dữ liệu loginData
           localStorage.setItem('loginData', JSON.stringify(loginData));
-          navigate('/home');
+          navigate('/queueing-system/home');
         } else {
           setErrorMessage('Sai mật khẩu hoặc tên đăng nhập');
         }
@@ -100,7 +100,7 @@ function Login() {
           </div>
 
           {!errorMessage && (
-            <Link to="/forgetpass" className="forget-password">
+            <Link to="/queueing-system/forgetpass" className="forget-password">
               Quên mật khẩu?
             </Link>
           )}
@@ -110,7 +110,7 @@ function Login() {
           </button>
 
           {errorMessage && (
-            <Link to="/forgetpass" className="forget-password">
+            <Link to="/queueing-system/forgetpass" className="forget-password">
               Quên mật khẩu?
             </Link>
           )}

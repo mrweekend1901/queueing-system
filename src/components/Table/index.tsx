@@ -17,40 +17,40 @@ function Table({ columns, data }: any) {
   const handleRowClick = (row: any) => {
     setSelectedRow(row);
 
-    if (location.pathname === '/device') {
-      navigate('/device/detaildevice', { state: row });
-    } else if (location.pathname === '/service') {
-      navigate('/service/detailservice', { state: row });
-    } else if (location.pathname === '/number') {
-      navigate('/number/detailnumber', { state: row });
+    if (location.pathname === '/queueing-system/device') {
+      navigate('/queueing-system/device/detaildevice', { state: row });
+    } else if (location.pathname === '/queueing-system/service') {
+      navigate('/queueing-system/service/detailservice', { state: row });
+    } else if (location.pathname === '/queueing-system/number') {
+      navigate('/queueing-system/number/detailnumber', { state: row });
     }
   };
 
   const handleRowUpdateClick = (row: any) => {
     setSelectedRow(row);
 
-    if (location.pathname === '/device') {
-      navigate('/device/updatedevice', { state: row });
-    } else if (location.pathname === '/service') {
-      navigate('/service/updateservice', { state: row });
+    if (location.pathname === '/queueing-system/device') {
+      navigate('/queueing-system/device/updatedevice', { state: row });
+    } else if (location.pathname === '/queueing-system/service') {
+      navigate('/queueing-system/service/updateservice', { state: row });
     } else if (location.pathname === '/number') {
-      navigate('/number/detailnumber', { state: row });
-    } else if (location.pathname === '/setting/settingrole') {
-      navigate('/setting/settingrole/updaterole', { state: row });
-    } else if (location.pathname === '/setting/settinguser') {
-      navigate('/setting/settinguser/updateuser', { state: row });
+      navigate('/queueing-system/number/detailnumber', { state: row });
+    } else if (location.pathname === '/queueing-system/setting/settingrole') {
+      navigate('/queueing-system/setting/settingrole/updaterole', { state: row });
+    } else if (location.pathname === '/queueing-system/setting/settinguser') {
+      navigate('/queueing-system/setting/settinguser/updateuser', { state: row });
     }
   };
 
   const shouldShowUpdateColumn =
-    location.pathname !== '/number' &&
-    location.pathname !== '/service/detailservice' &&
-    location.pathname !== '/setting/history'; // Kiểm tra path hiện tại
+    location.pathname !== '/queueing-system/number' &&
+    location.pathname !== '/queueing-system/service/detailservice' &&
+    location.pathname !== '/queueing-system/setting/history'; // Kiểm tra path hiện tại
   const shouldShowDetailColumn =
-    location.pathname !== '/service/detailservice' &&
-    location.pathname !== '/setting/settingrole' &&
-    location.pathname !== '/setting/settinguser' &&
-    location.pathname !== '/setting/history'; // Kiểm tra path hiện tại
+    location.pathname !== '/queueing-system/service/detailservice' &&
+    location.pathname !== '/queueing-system/setting/settingrole' &&
+    location.pathname !== '/queueing-system/setting/settinguser' &&
+    location.pathname !== '/queueing-system/setting/history'; // Kiểm tra path hiện tại
 
   const tableInstance = useTable({
     columns: memoizedColumns,

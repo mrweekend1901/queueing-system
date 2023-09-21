@@ -31,10 +31,10 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/forgetpass" element={<Forgetpass />} />
-          <Route path="/newpass" element={<Newpass />} />
-          <Route path="/*" element={<MainContent />} />
+          <Route path="/queueing-system/" element={<Login />} />
+          <Route path="/queueing-system/forgetpass" element={<Forgetpass />} />
+          <Route path="/queueing-system/newpass" element={<Newpass />} />
+          <Route path="/queueing-system/*" element={<MainContent />} />
         </Routes>
       </div>
     </Router>
@@ -46,28 +46,28 @@ function MainContent() {
     <>
       <Sidebar>
         <Routes>
-          <Route path="/home" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/device" element={<Device />} />
-          <Route path="/service" element={<Service />} />
-          <Route path="/number" element={<NumberPage />} />
-          <Route path="/report" element={<Report />} />
-          <Route path="/setting/settingrole" element={<SettingRole />} />
-          <Route path="/setting/settinguser" element={<SettingUser />} />
-          <Route path="/setting/history" element={<HistoryPage />} />
-          <Route path="/setting/settingrole/addrole" element={<Addrole />} />
-          <Route path="/setting/settinguser/adduser" element={<AddUser />} />
-          <Route path="/setting/settingrole/updaterole" element={<UpdateRole />} />
-          <Route path="/setting/settinguser/updateuser" element={<UpdateUser />} />
-          <Route path="/setting" element={<Setting />} />
-          <Route path="/device/adddevice" element={<Adddevice />} />
-          <Route path="/device/updatedevice" element={<UpdateDevice />} />
-          <Route path="/service/addservice" element={<Addservice />} />
-          <Route path="/service/detailservice" element={<DetailService />} />
-          <Route path="/service/updateservice" element={<UpdateService />} />
-          <Route path="/number/addnumber" element={<Addnumber />} />
-          <Route path="/number/detailnumber" element={<DetailNumber />} />
-          <Route path="/device/detaildevice" element={<DetailDevice />} />
+          <Route path="/queueing-system/home" element={<Home />} />
+          <Route path="/queueing-system/dashboard" element={<Dashboard />} />
+          <Route path="/queueing-system/device" element={<Device />} />
+          <Route path="/queueing-system/service" element={<Service />} />
+          <Route path="/queueing-system/number" element={<NumberPage />} />
+          <Route path="/queueing-system/queueing-system/report" element={<Report />} />
+          <Route path="/queueing-system/setting/settingrole" element={<SettingRole />} />
+          <Route path="/queueing-system/setting/settinguser" element={<SettingUser />} />
+          <Route path="/queueing-system/setting/history" element={<HistoryPage />} />
+          <Route path="/queueing-system/setting/settingrole/addrole" element={<Addrole />} />
+          <Route path="/queueing-system/setting/settinguser/adduser" element={<AddUser />} />
+          <Route path="/queueing-system/setting/settingrole/updaterole" element={<UpdateRole />} />
+          <Route path="/queueing-system/setting/settinguser/updateuser" element={<UpdateUser />} />
+          <Route path="/queueing-system/setting" element={<Setting />} />
+          <Route path="/queueing-system/device/adddevice" element={<Adddevice />} />
+          <Route path="/queueing-system/device/updatedevice" element={<UpdateDevice />} />
+          <Route path="/queueing-system/service/addservice" element={<Addservice />} />
+          <Route path="/queueing-system/service/detailservice" element={<DetailService />} />
+          <Route path="/queueing-system/service/updateservice" element={<UpdateService />} />
+          <Route path="/queueing-system/number/addnumber" element={<Addnumber />} />
+          <Route path="/queueing-system/number/detailnumber" element={<DetailNumber />} />
+          <Route path="/queueing-system/device/detaildevice" element={<DetailDevice />} />
         </Routes>
       </Sidebar>
     </>

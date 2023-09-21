@@ -25,32 +25,32 @@ const Sidebar = ({ children }: any) => {
 
   const menuItem: MenuItem[] = [
     {
-      path: '/dashboard',
+      path: '/queueing-system/dashboard',
       name: 'Dashboard',
       icon: <FontAwesomeIcon icon={faGripVertical} />,
     },
     {
-      path: '/device',
+      path: '/queueing-system/device',
       name: 'Thiết bị',
       icon: <FontAwesomeIcon icon={faDisplay} />,
     },
     {
-      path: '/service',
+      path: '/queueing-system/service',
       name: 'Dịch vụ',
       icon: <FontAwesomeIcon icon={faComments} />,
     },
     {
-      path: '/number',
+      path: '/queueing-system/number',
       name: 'Cấp số',
       icon: <FontAwesomeIcon icon={faLayerGroup} />,
     },
     {
-      path: '/report',
+      path: '/queueing-system/report',
       name: 'Báo cáo',
       icon: <FontAwesomeIcon icon={faFileLines} />,
     },
     {
-      path: '/setting',
+      path: '/queueing-system/setting',
       name: 'Cài đặt hệ thống',
       icon: <FontAwesomeIcon icon={faGear} />,
       drop: <FontAwesomeIcon icon={faEllipsisVertical} />,
@@ -66,13 +66,13 @@ const Sidebar = ({ children }: any) => {
           <div className="icon icon-drop">{menuItem.drop}</div>
           {menuItem.drop && (
             <ul className="setting-list">
-              <Link className="link_tag" to="/setting/settingrole">
+              <Link className="link_tag" to="/queueing-system/setting/settingrole">
                 <li className="setting-item">Quản lý vai trò</li>
               </Link>
-              <Link className="link_tag" to="/setting/settinguser">
+              <Link className="link_tag" to="/queueing-system/setting/settinguser">
                 <li className="setting-item">Quản lý tài khoản</li>
               </Link>
-              <Link className="link_tag" to="/setting/history">
+              <Link className="link_tag" to="/queueing-system/setting/history">
                 <li className="setting-item">Nhật ký người dùng</li>
               </Link>
             </ul>
@@ -87,14 +87,14 @@ const Sidebar = ({ children }: any) => {
     // Xóa loginData từ localStorage
     localStorage.removeItem('loginData');
     // Chuyển hướng đến trang đăng nhập
-    navigate('/');
+    navigate('/queueing-system/');
   };
 
   return (
     <div className="container">
       <div className="sidebar">
         <div className="top_section">
-          <Link to="/home">
+          <Link to="/queueing-system/home">
             <img src={images.logo} alt="logo_Alta" />
           </Link>
         </div>

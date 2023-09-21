@@ -42,7 +42,7 @@ function Newpass() {
           });
 
           console.log('Mật khẩu đã được cập nhật thành công');
-          navigate('/');
+          navigate('/queueing-system/');
         } catch (error) {
           console.error('Lỗi khi cập nhật mật khẩu:', error);
         }
