@@ -9,6 +9,7 @@ import ThreeDos from './fi_more-vertical.svg';
 import Bell from './bell.svg';
 import Avatar from './avatar.png';
 import Avatar2 from './avatar_big.png';
+import Logonew from './logoremake.png';
 
 type ImagesType = Record<string, string>;
 
@@ -24,6 +25,7 @@ const images: ImagesType = {
   bell: Bell,
   avatar: Avatar,
   avatar2: Avatar2,
+  logonew: Logonew,
 };
 
 export default images;

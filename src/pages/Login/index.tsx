@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { db } from '../../init/init-firebase';
 import { collection, getDocs } from 'firebase/firestore';
+import images from '../../assets/images';
 
 function Login() {
   const navigate = useNavigate();
@@ -52,7 +53,7 @@ function Login() {
   return (
     <div className="login-page">
       <div className="form-side">
-        <img src={formlogo} alt="form-logo" className="form-logo" />
+        <img src={images.logonew} alt="form-logo" className="form-logo" />
         <form className="login-form" id="login" onSubmit={handleLogin}>
           <div className="form-group">
             <label htmlFor="username" className="form-label">

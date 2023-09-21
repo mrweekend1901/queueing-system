@@ -95,7 +95,7 @@ const Sidebar = ({ children }: any) => {
       <div className="sidebar">
         <div className="top_section">
           <Link to="/queueing-system/home">
-            <img src={images.logo} alt="logo_Alta" />
+            <img src={images.logonew} alt="logo_new" style={{ width: '80px', height: '64px' }} />
           </Link>
         </div>
         <ul>{menuItem.map((item: MenuItem, index: number) => renderMenuItem(item, index))}</ul>
