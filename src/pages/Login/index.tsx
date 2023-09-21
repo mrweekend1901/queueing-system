@@ -65,7 +65,7 @@ function Login() {
                 id="username"
                 name="username"
                 type="text"
-                placeholder="Nhập tên đăng nhập..."
+                placeholder="Tài khoản là: aivan01"
                 className={`form-control ${errorMessage ? 'input-error' : ''}`}
                 onChange={e => setLoginData({ ...loginData, username: e.target.value })}
               />
@@ -82,7 +82,7 @@ function Login() {
                 id="password"
                 name="password"
                 type={inputType}
-                placeholder="Nhập mật khẩu..."
+                placeholder="Mật khẩu là: 123456789"
                 className={`form-control ${errorMessage ? 'input-error' : ''}`}
                 onChange={e => setLoginData({ ...loginData, password: e.target.value })}
               />
