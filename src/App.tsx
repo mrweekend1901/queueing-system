@@ -46,11 +46,11 @@ function MainContent() {
     <>
       <Sidebar>
         <Routes>
-          <Route path="/queueing-system/home" element={<Home />} />
-          <Route path="/queueing-system/dashboard" element={<Dashboard />} />
-          <Route path="/queueing-system/device" element={<Device />} />
-          <Route path="/queueing-system/service" element={<Service />} />
-          <Route path="/queueing-system/number" element={<NumberPage />} />
+          <Route path="/queueing-system/home/" element={<Home />} />
+          <Route path="/queueing-system/dashboard/" element={<Dashboard />} />
+          <Route path="/queueing-system/device/" element={<Device />} />
+          <Route path="/queueing-system/service/" element={<Service />} />
+          <Route path="/queueing-system/number/" element={<NumberPage />} />
           <Route path="/queueing-system/queueing-system/report" element={<Report />} />
           <Route path="/queueing-system/setting/settingrole" element={<SettingRole />} />
           <Route path="/queueing-system/setting/settinguser" element={<SettingUser />} />
